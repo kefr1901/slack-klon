@@ -41,7 +41,7 @@ a {
 .main {
   margin-left: 160px; 
   padding: 0px 10px;
-  background-color: lightgray;
+  background-color: white;
   height: 70vh;
   display: grid;
   box-sizing: border-box;
@@ -75,7 +75,7 @@ a {
 
 }
 
-#send_btn{
+#snd-btn{
   background-color: #4CAF50;
   border: none;
   color: white;

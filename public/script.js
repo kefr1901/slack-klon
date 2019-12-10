@@ -21,7 +21,7 @@ const messageInput = document.getElementById('msg-inp');
 
 // Prompts user for name (will be replaced by login screen)
 const name = prompt('What is your name?');
-appendMessage('You joined');
+appendMessage(name + " " + 'joined');
 socket.emit('new-user', name);
 
 // Adds message written onto html page in the specified container
