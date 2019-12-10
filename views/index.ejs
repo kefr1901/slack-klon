@@ -1,52 +1,59 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title> <%= title %></title>
-    
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <!-- Head navigation -->
 
-    <!-- Side navigation -->
+<head>
+  <title> <%= title %></title>
+ 
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <!-- Head navigation -->
+
+  <!-- Side navigation -->
   <div class="sidenav">
+
+    <img id="side_logo" src="images/talck_logo.png">
+    <h2 id="logo_text">SNACK</h2>
+    <br>
+    <button id="add_room_btn">Lägg till rum!</button>
+    <a href="#">#Channel</a>
+    <a href="#">#Skitsnack</a>
+    <hr>
+    <br>
+    <a href="#">@PatrikJ</a>
+    <a href="#">@RobinN</a>
+    <a href="#">@KevinF</a>
+    <hr>
+
+  </div>
+
+
+
+
+  <!-- Main -->
+  <div class="main">
+    <div id="chatbox">
+      <div id="msg-cont">
+
+      </div>
+
+
+
+    </div>
+
+
+  </div>
+  <form action="" id="snd-cont">
   
-  <img id="side_logo" src="images/talck_logo.png">
-  <h2 id="logo_text">SNACK</h2>
-  <br>
-  <button id="add_room_btn">Lägg till rum!</button>
-  <a href="#">#Channel</a>
-  <a href="#">#Skitsnack</a>
-  <hr>
-  <br>
-  <a href="#">@PatrikJ</a>
-  <a href="#">@RobinN</a>
-  <a href="#">@KevinF</a>
-  <hr>
-   
-</div>
+  <input id="msg-inp" type="text" placeholder="Skriv ditt meddelande.."></input><button id="snd-btn" type="submit">Skicka</button>
+
+  </form>
+
+  <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script defer src="script.js"></script>
 
 
+</body>
 
-
-<!-- Main -->
-<div class="main">
- <div id="chatbox">
-  <table id="content">
-   
-  </table>
-
- 
- 
- </div>
-
-
-</div>
-
-<input id="nameinput" type="text" placeholder="Fyll i ditt namn" ></input>
-<input id="textinput" type="text" placeholder="Skriv ditt meddelande.."></input><button id="send_btn"type="button" value="submit">Skicka</button>
-
-
-<script src="/javascripts/testing.js"></script>
-  </body>
 </html>
