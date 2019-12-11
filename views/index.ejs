@@ -13,7 +13,7 @@
     <div id="container">
         <div id="forms">
                 <img src="../../images/bubbles.png" alt="pic">
-                <form id="formAddUser" name="adduser" method="post" action="/users/add">
+                <form id="formAddUser" name="adduser" method="post" action="/add">
                     <div class="form-group">
                         <label for="inputUserName">Username</label>
                         <input type="text" class="form-control" id="inputUserName" name="username" placeholder="name">
@@ -24,7 +24,8 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
-                <form id="formLogin" name="loginuser" method="POST" action="/users/login">
+                
+                <form id="formLogin" name="loginuser" method="POST" action="/login">
                     <div class="form-group">
                         <label for="inputUserName">Username</label>
                         <input type="text" class="form-control" id="inputUserName" name="username" placeholder="name">

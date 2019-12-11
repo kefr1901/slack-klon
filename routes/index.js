@@ -2,16 +2,16 @@ var express = require('express');
 var router = express.Router();
 
 /* GET New User page. */
-router.get('/add', function (req, res) {
-  res.render('users/add', { title: 'Add New User' });
+router.get('/', function (req, res) {
+  res.render('index', { title: 'Add New User' });
 });
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/list', function(req, res, next) {
   var db = req.db;
   var collection = db.get('usercollection');
   collection.find({}, {}, function (e, data) {
-    res.render('users/list', {
+    res.render('list', {
       "userlist": data
     });
   });
@@ -26,9 +26,9 @@ router.post('/login', function(req, res, next) {
   collection.findOne({username: enteredUsername, userpassword: enteredPassword}, function (e, data) {
     if(e || data == null){
       console.log('Username or password is wrong')
-      res.render('users/add');
+      res.render('add');
     }else{
-      res.render('users/login');
+      res.render('login');
     }
   });
 });
@@ -57,7 +57,7 @@ router.post('/add', function (req, res) {
     }
     else {
       // And forward to success page
-      res.redirect("/users");
+      res.redirect("list");
     }
   });
 

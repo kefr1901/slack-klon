@@ -1,5 +1,5 @@
 var createError = require('http-errors');
-var express = require('express');
+var express = require('express')
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -7,7 +7,7 @@ var monk = require('monk');
 var db = monk('localhost:27017/test');
 
 // var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var indexRouter = require('./routes/index');
 
 var app = express();
 
@@ -27,8 +27,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-// app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', indexRouter);
+// app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -45,5 +45,7 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.listen(3000, () => console.log("Server is running on port 3000"));
 
 module.exports = app;
