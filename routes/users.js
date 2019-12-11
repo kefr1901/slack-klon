@@ -17,6 +17,22 @@ router.get('/', function(req, res, next) {
   });
 });
 
+/* GET login - Check if there is a user with that name and password, then redirect */
+router.post('/login', function(req, res, next) {
+  let enteredUsername = req.body.username;
+  let enteredPassword = req.body.userpassword;
+  var db = req.db;
+  var collection = db.get('usercollection');
+  collection.findOne({username: enteredUsername, userpassword: enteredPassword}, function (e, data) {
+    if(e || data == null){
+      console.log('Username or password is wrong')
+      res.render('users/add');
+    }else{
+      res.render('users/login');
+    }
+  });
+});
+
 /* POST to Add User Service */
 router.post('/add', function (req, res) {
 

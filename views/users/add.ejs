@@ -24,7 +24,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
-                <form id="formLogin" name="loginuser" method="get" action="/users/add">
+                <form id="formLogin" name="loginuser" method="POST" action="/users/login">
                     <div class="form-group">
                         <label for="inputUserName">Username</label>
                         <input type="text" class="form-control" id="inputUserName" name="username" placeholder="name">
@@ -75,7 +75,7 @@
     }
 
     #forms {
-        background-color: white;
+        border: 2px solid #31b37a;
         width:fit-content;
         padding: 10px;
         margin: 0 auto;

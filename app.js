@@ -6,7 +6,7 @@ var logger = require('morgan');
 var monk = require('monk');
 var db = monk('localhost:27017/test');
 
-var indexRouter = require('./routes/users');
+// var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -27,7 +27,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use('/', indexRouter);
+// app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
