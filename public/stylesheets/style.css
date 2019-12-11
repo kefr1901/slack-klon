@@ -100,11 +100,14 @@ color: white;
 }
 
 p:nth-child(odd) {
-  background: red;
+  background: rgb(209, 209, 209);
+  font-size: large;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 p:nth-child(even) {
-  background: blue;
+  background: rgb(167, 167, 167);
+  font-size: large;
 }
 
 #add_room_btn{

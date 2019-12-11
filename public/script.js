@@ -1,19 +1,3 @@
-/*document.getElementById("send_btn").addEventListener("click", function(){
-    let inputname = document.getElementById("nameinput").value;
-    let chat = document.getElementById("textinput").value;
-
-var newchat = document.createElement('p');
-newchat.innerHTML = chat;
-
-let table = document.getElementById('content');
-//let person = document.getElementById("p");
-
-//person.appendChild(inputname);
-table.appendChild(newchat);
-
-});
-*/
-
 const socket = io('localhost:3000');
 const msgContainer = document.getElementById('msg-cont');
 const msgForm = document.getElementById('snd-cont');
@@ -21,7 +5,7 @@ const messageInput = document.getElementById('msg-inp');
 
 // Prompts user for name (will be replaced by login screen)
 const name = prompt('What is your name?');
-appendMessage(name + " " + 'joined');
+appendMessage(name + " " + ' has joined');
 socket.emit('new-user', name);
 
 // Adds message written onto html page in the specified container
