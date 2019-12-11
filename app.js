@@ -6,6 +6,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var io = require('socket.io')(server);
+let db = monk("localhost:27017/mongochat")
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -22,8 +23,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-// Object with the names of users
-const users = {};
+
+
+
 
 // Below happens when a user connects
 io.on('connection', socket => {
