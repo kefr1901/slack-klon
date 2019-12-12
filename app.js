@@ -6,7 +6,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var io = require('socket.io')(server);
-let db = monk("localhost:27017/mongochat")
+
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -24,27 +25,26 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 
-
-
-
-// Below happens when a user connects
+// Below happens when a user connects to chat
 io.on('connection', socket => {
   socket.on('new-user', name => {
     users[socket.id] = name;
     socket.broadcast.emit('user-connected', name);
+    
   })
   // When a message is sent from a user
   socket.on('send-chat-message', message => {
-      socket.broadcast.emit('chat-message', { message: message, name: 
-      users[socket.id] })
+    socket.broadcast.emit('chat-message', {
+      message: message, name:
+        users[socket.id]
+    })
   })
   // When a user disconnects from chat
   socket.on('disconnect', () => {
     socket.broadcast.emit('user-disconnected', users[socket.id])
     delete users[socket.id]
-})
-})
-
+  })
+});
 
 
 
