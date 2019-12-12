@@ -38,7 +38,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-console.log("Hej")
+console.log("Hej då")
 
 app.listen(5000);
 
