@@ -46,19 +46,12 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-console.log("Hej då")
 
-app.listen(5000);
 
-module.exports = app;
-=======
-module.exports = app;
->>>>>>> development-patrik
-=======
-app.listen(3000, () => console.log("Server is running on port 3000")); //appens server
-app.listen(4000, () => console.log("Server is running on port 4000")); //chattens server
+
+
+app.listen(4000, () => console.log("Server is running on port 4000")); //appens server
+
 
 module.exports = app;
->>>>>>> ef272f056b1172c7df02ab2b4320c504d769fa0b
+
