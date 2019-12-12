@@ -16,6 +16,7 @@ socket.on('chat-message', data => {
 // On user connect, adds user's name and connected message
 socket.on('user-connected', data => {
     appendMessage(`${name} connected`);
+    
 })
 
 // When user disconnects message with user name is displayed
