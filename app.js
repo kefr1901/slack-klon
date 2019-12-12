@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var monk = require('monk');
-var db = monk('localhost:27017/test');
+var db = monk('mongodb+srv://patrikjohansson:Skateboard@cluster0-knble.mongodb.net/snackdb?retryWrites=true&w=majority');
 
 // var indexRouter = require('./routes/index');
 var indexRouter = require('./routes/index');
