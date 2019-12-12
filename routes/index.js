@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET New User page. */
+/* GET New User and Login page. */
 router.get('/', function (req, res) {
   res.render('index', { title: 'Add New User' });
 });
 
-/* GET users listing. */
+/* GET users listing. THIS IS NOT IN USE ATM*/
 router.get('/list', function(req, res, next) {
   var db = req.db;
   var collection = db.get('usercollection');
@@ -17,24 +17,29 @@ router.get('/list', function(req, res, next) {
   });
 });
 
-/* GET login - Check if there is a user with that name and password, then redirect */
+/* GET login - Check if there is a user with that name and password, then redirect to get request on line 37 */
 router.post('/login', function(req, res, next) {
   let enteredUsername = req.body.username;
   let enteredPassword = req.body.userpassword;
   var db = req.db;
   var collection = db.get('usercollection');
   collection.findOne({username: enteredUsername, userpassword: enteredPassword}, function (e, data) {
+    console.log(data);
     if(e || data == null){
       console.log('Username or password is wrong')
-      res.render('add');
+      res.redirect('/');
     }else{
-      res.render('login');
+      res.redirect('/chat'); //to avoid having /login in the address field in the browser
     }
   });
 });
 
+router.get('/chat', function (req, res) {
+  res.render('chat')
+});
+
 /* POST to Add User Service */
-router.post('/add', function (req, res) {
+router.post('/chat', function (req, res) {
 
   // Set our internal DB variable
   var db = req.db;
@@ -57,14 +62,11 @@ router.post('/add', function (req, res) {
     }
     else {
       // And forward to success page
-      res.redirect("list");
+      res.render("chat"); 
+      // res.redirect("list"); this was the old shit when printing all the users as a list
     }
   });
 
 });
 
 module.exports = router;
-
-//kollektion chatt
-//username
-//message
