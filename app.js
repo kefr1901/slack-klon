@@ -38,6 +38,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+console.log("Hej")
+
 app.listen(5000);
 
 module.exports = app;
