@@ -1,13 +1,13 @@
 var createError = require('http-errors');
-var express = require('express');
+var express = require('express')
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var monk = require('monk');
-var db = monk('localhost:27017/test');
+var db = monk('mongodb+srv://patrikjohansson:Skateboard@cluster0-knble.mongodb.net/snackdb?retryWrites=true&w=majority');
 
-var indexRouter = require('./routes/users');
-var usersRouter = require('./routes/users');
+// var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/index');
 
 var app = express();
 
@@ -28,7 +28,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -47,6 +47,7 @@ app.use(function (err, req, res, next) {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 console.log("Hej då")
 
 app.listen(5000);
@@ -55,3 +56,9 @@ module.exports = app;
 =======
 module.exports = app;
 >>>>>>> development-patrik
+=======
+app.listen(3000, () => console.log("Server is running on port 3000")); //appens server
+app.listen(4000, () => console.log("Server is running on port 4000")); //chattens server
+
+module.exports = app;
+>>>>>>> ef272f056b1172c7df02ab2b4320c504d769fa0b
