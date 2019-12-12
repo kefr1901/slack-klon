@@ -8,11 +8,16 @@
     <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script defer src="script.js"></script>
 </head>
-<body>
-    <div id="msg-cont"></div>
-    <form action="" id="snd-cont">
-        <input type="text" id="msg-inp">
-        <button type="submit" id="snd-btn">Submit</button>
-    </form>
+<body>    
+    <div id="room-cont">
+        <% Object.keys(rooms).forEach(room => { %>
+            <div><%= room %></div>
+            <a href="/<%= room %>">Join</a>
+            <% }) %>
+        </div>
+        <form action="/room" method="POST">
+            <input name="room" type="text" required>
+            <button type="submit">New Room</button>
+        </form>
 </body>
 </html>
