@@ -1,13 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <title> <%= title %></title>
+ 
+  <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
+
 <body>
-    <p>denna sida representerar chatten</p>
-    
+  <!-- Head navigation -->
+
+  <!-- Side navigation -->
+  <div class="sidenav">
+
+    <img id="side_logo" src="images/talck_logo.png">
+    <h2 id="logo_text">SNACK</h2>
+    <br>
+    <button id="add_room_btn">Lägg till rum!</button>
+    <a href="#">#Channel</a>
+    <a href="#">#Skitsnack</a>
+    <hr>
+    <br>
+    <a href="#">@PatrikJ</a>
+    <a href="#">@RobinN</a>
+    <a href="#">@KevinF</a>
+    <hr>
+
+  </div>
+
+
+
+
+  <!-- Main -->
+  <div class="main">
+    <div id="chatbox" >
+      <label id="username_chat">Username är inloggad</label>
+      <div id="msg-cont">
+
+      </div>
+    </div>
+
+  </div>
+  
+  <form method="POST" id="snd-cont" name="" action="/chat"> 
+
+  <input id="msg-inp" type="text" name="msg-inp" placeholder="Skriv ditt meddelande.."></input><button id="snd-btn" type="submit">Skicka</button>
+
+  </form>
+
+  <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script defer src="script.js"></script>
+
+
 </body>
+
 </html>
