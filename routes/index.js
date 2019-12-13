@@ -6,6 +6,10 @@ router.get('/', function (req, res) {
   res.render('index', { title: 'Add New User' });
 });
 
+router.get('/chat', function (req, res) {
+  res.render('chat', { title: 'Add New User' });
+});
+
 /* GET users listing. THIS IS NOT IN USE ATM*/
 router.get('/list', function(req, res, next) {
   var db = req.db;
