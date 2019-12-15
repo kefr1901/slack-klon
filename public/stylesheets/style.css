@@ -124,6 +124,14 @@ p:nth-child(even) {
   border-radius: 20px;
 }
 
+li{
+  list-style: none;
+  margin: 0 ;
+}
+
+ul{
+  margin: 0;
+}
 
 
 
