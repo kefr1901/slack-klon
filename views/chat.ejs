@@ -2,15 +2,15 @@
 <html>
 
 <head>
-  <title> <%= title %></title>
- 
+  <title> </title>
+
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
 <body>
   <!-- Head navigation -->
 
-  <!-- Side navigation -->
+
   <div class="sidenav">
 
     <img id="side_logo" src="images/talck_logo.png">
@@ -21,10 +21,13 @@
     <a href="#">#Skitsnack</a>
     <hr>
     <br>
-    <a href="#">@PatrikJ</a>
-    <a href="#">@RobinN</a>
-    <a href="#">@KevinF</a>
-    <hr>
+    <!-- Side navigation-->
+
+    <ul>
+      <% for(let i=0; i < data.length; i++){ %>
+        <li> <a href="#"><%= data[i].username %></li></a>
+     <% } %>
+    </ul>
 
   </div>
 
@@ -33,7 +36,7 @@
 
   <!-- Main -->
   <div class="main">
-    <div id="chatbox" >
+    <div id="chatbox">
       <label id="username_chat">Username är inloggad</label>
       <div id="msg-cont">
 
@@ -41,10 +44,11 @@
     </div>
 
   </div>
-  
-  <form method="POST" id="snd-cont" name="" action="/chat"> 
 
-  <input id="msg-inp" type="text" name="msg-inp" placeholder="Skriv ditt meddelande.."></input><button id="snd-btn" type="submit">Skicka</button>
+  <form method="POST" id="snd-cont" name="" action="/chat">
+
+    <input id="msg-inp" type="text" name="msg-inp" placeholder="Skriv ditt meddelande.."></input><button id="snd-btn"
+      type="submit">Skicka</button>
 
   </form>
 
