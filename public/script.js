@@ -14,7 +14,7 @@ socket.on('chat-message', data => {
 })
 
 // On user connect, adds user's name and connected message
-socket.on('user-connected', data => {
+socket.on('user-connected', name => {
     appendMessage(`${name} connected`);
     
 })
