@@ -3,10 +3,18 @@ const msgContainer = document.getElementById('msg-cont');
 const msgForm = document.getElementById('snd-cont');
 const messageInput = document.getElementById('msg-inp');
 
-// Prompts user for name (will be replaced by login screen)
-const name = prompt('What is your name?');
-appendMessage(name + " " + ' has joined');
-socket.emit('new-user', name);
+
+
+let userId = document.cookie.replace('user=', '');
+
+let name;
+
+fetch('/user/' + userId).then(res => res.json()).then(user => {
+    console.log(user);
+    name = user.username;
+    appendMessage(name + " " + ' has joined');
+    socket.emit('new-user', name);
+})
 
 // Adds message written onto html page in the specified container
 socket.on('chat-message', data => {

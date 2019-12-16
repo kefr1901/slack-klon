@@ -8,19 +8,26 @@ var logger = require('morgan');
 //DATABASE CONNECT
 let monk = require("monk");
 var db = monk('mongodb+srv://kevinfridman:Skateboard@cluster0-knble.mongodb.net/snackdb?retryWrites=true&w=majority');
-var io = require('socket.io')(server)
+var io = require('socket.io')(server);
+const cookieSession = require('cookie-session');
 
 //make out DB accesible to our router
 
 app.use(function (req, res, next) {
   req.db = db;
   next();
-})
+});
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}))
 
 //var indexRouter = require('./routes/chat');
 var indexRouter = require("./routes/index");
 var usersRouter = require('./routes/users');
 var chatRouter = require("./routes/chat");
+var loginRouter = require("./routes/login");
 
 
 // Object with the names of users
@@ -73,6 +80,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/chat', chatRouter);
+app.use("/login", loginRouter);
 
 
 
