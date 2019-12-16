@@ -5,6 +5,8 @@
   <title> </title>
 
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script defer src="script.js"></script>
 </head>
 
 <body>
@@ -23,11 +25,17 @@
     <br>
     <!-- Side navigation-->
 
-    <ul>
-      <% for(let i=0; i < data.length; i++){ %>
-        <li> <a href="#"><%= data[i].username %></li></a>
-     <% } %>
-    </ul>
+    <form action="/room" method="POST">
+      <ul>
+        <% for(let i=0; i < data.length; i++){ %>
+          <li> <a name="userName" href="/<%= data[i].username %>"><%= data[i].username %></li></a>
+       <% } %>
+      </ul>
+    </form>
+        <form action="/room" method="POST">
+            <input name="room" type="text" required>
+            <button type="submit">New Room</button>
+        </form>
 
   </div>
 
