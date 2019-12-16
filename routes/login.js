@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+let multer = require("multer");
 
 /* GET login - Check if there is a user with that name and password, then redirect to get request on line 37 */
 router.post('/login', function (req, res, next) {
@@ -19,12 +20,12 @@ router.post('/login', function (req, res, next) {
         }
     });
 });
+
+
 router.get('/chat', function (req, res) {
     res.render('chat')
 });
 
-
-/* POST to Add User Service */
 router.post('/', function (req, res) {
 
     // Set our internal DB variable
@@ -48,8 +49,9 @@ router.post('/', function (req, res) {
         }
         else {
             // And forward to success page
-            res.render("chat");
-            // res.redirect("list"); this was the old shit when printing all the users as a list
+            req.session.user = { _id: data._id };
+            res.redirect("chat");
+            
         }
     });
 

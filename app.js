@@ -12,7 +12,6 @@ var io = require('socket.io')(server);
 const cookieSession = require('cookie-session');
 
 //make out DB accesible to our router
-
 app.use(function (req, res, next) {
   req.db = db;
   next();
@@ -30,69 +29,39 @@ var chatRouter = require("./routes/chat");
 var loginRouter = require("./routes/login");
 
 
-
 // Object with the names of users
-const rooms = {};
+const users = {};
 
-
-// Below happens when a user connects
+// När en användare connectar till chatten
 io.on('connection', socket => {
-  socket.on('new-user', (room, name) => {
-    socket.join(room);
-    rooms[room].users[socket.id] = name;
-    socket.to(room).broadcast.emit('user-connected', name);
+  socket.on('new-user', name => {
+    users[socket.id] = name;
+    socket.broadcast.emit('user-connected', name);
 
-    var roomCollection = db.get('roomcollection');
-    var userCollection = db.get('usercollection');
-    userCollection.find({}, {}, function (e, data) {
-      console.log(data);
-      for (user of data) {
-        let roomForDb = { //skapar ett objekt som representerar en chatt mellan båda användarna
-          user1: user, 
-          user2: name  
-            
-        }        
-        roomCollection.insert(roomForDb);
-        
-        
-      }
-      
-    })
   })
 
   // När en anvädare skriver
-  socket.on('send-chat-message', (room, message) => {
+  socket.on('send-chat-message', message => {
     let messageForDb = { //skapar ett objekt av meddelandet och vem som är användare
-      message: message, name:  //meddelande från personen
-        rooms[room].users[socket.id] //personID på personen
+      message: message,  //meddelande från personen
+      name: users[socket.id] //personID på personen
     }
-
+      
     var collection = db.get('messagecollection');//skapar collection messagecollection
     collection.insert(messageForDb); // Skickar objektet till databasen
 
-    socket.to(room).broadcast.emit('chat-message', {  //skriver ut till klienten
-      message: message, name:
-        rooms[room].users[socket.id]
-
+    socket.broadcast.emit('chat-message', { //skriver ut till klienten
+      message: message, 
+      name: users[socket.id]
     })
-  })
-  // When a user disconnects from chat
-  socket.on('disconnect', () => {
-    getUserRooms(socket).forEach(room => {
-      socket.to(room).broadcast.emit('user-disconnected', rooms[room].users[socket.id])
-      delete rooms[room].users[socket.id]
 
+    // When a user disconnects from chat
+    socket.on('disconnect', () => {
+      socket.broadcast.emit('user-disconnected', users[socket.id])
+      delete users[socket.id]
     });
   })
 })
-
-function getUserRooms(socket) {
-  return Object.entries(rooms).reduce((names, [name, room]) => {
-    if (room.users[socket.id] != null) names.push(name);
-    return names;
-  }, [])
-}
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -108,56 +77,11 @@ app.use('/users', usersRouter);
 app.use('/chat', chatRouter);
 app.use("/login", loginRouter);
 
-app.post('/room', (req, res) => {
-  if (rooms[req.body.room] != null) {
-    return res.redirect('/');
-  }
-  rooms[req.body.room] = { users: {} }
-  res.redirect(req.body.room)
 
-})
-
-app.get('/', (req, res) => {
-  res.render('index', { rooms: rooms })
-})
-
-// Gets the rooms created (need to make this work with database) and their names
-app.get('/:room', (req, res) => {
-  if (rooms[req.params.room] == null) {
-    return res.redirect('/');
-  }
-  let collection = db.get("usercollection");
-  collection.find({}, {}, function (e, data) {
-    res.render('room', { rooms: rooms, roomName: req.params.room, data: data })
-  })
-})
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-
-//kan vara problem
-
-
-//app.listen(4000, () => console.log("Server is running on port 4000")); //appens server
-
-//app.use('/', indexRouter);
 
 
 server.listen(3000);
+console.log("lyssnar på app: 3000")
 
 module.exports = app;
 

@@ -1,46 +1,18 @@
-const socket = io('http://localhost:3000');
+const socket = io();
 const msgContainer = document.getElementById('msg-cont');
 const msgForm = document.getElementById('snd-cont');
 const messageInput = document.getElementById('msg-inp');
-const roomCont = document.getElementById('room-cont');
 
 
 let userId = document.cookie.replace('user=', '');
-
 let name;
 
-fetch('/user/' + userId).then(res => res.json()).then(user => {
+fetch('chat/user/' + userId).then(res => res.json()).then(user => {
     console.log(user);
     name = user.username;
     appendMessage(name + " " + ' has joined');
     socket.emit('new-user', name);
 })
-
-/*if (msgForm != null) {
-    // Prompts user for name (will be replaced by login screen)
-    const name = prompt('What is your name?');
-    appendMessage('You joined');
-    socket.emit('new-user', roomName, name);
-
-    // Listens to submit button and handles data from form
-    msgForm.addEventListener('submit', event => {
-        event.preventDefault();
-        const message = messageInput.value;
-        appendMessage(`You: ${message}`);
-        socket.emit('send-chat-message', roomName, message);
-        messageInput.value = '';
-    })
-}
-
-/*socket.on('room-created', room => {
-    const roomElement = document.createElement('div');
-    roomElement.innderText = room;
-    const roomLink = document.createElement('a');
-    roomLink.href = `/${room}`;
-    roomLink.innerText = 'join';
-    roomCont.append(roomElement);
-    roomCont.append(roomLink);
-})*/
 
 // Adds message written onto html page in the specified container
 socket.on('chat-message', data => {
@@ -57,11 +29,16 @@ socket.on('user-disconnected', name => {
     appendMessage(`${name} disconnected`);
 })
 
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('#snd-btn').addEventListener('click', e => {
+        e.preventDefault();
+        socket.emit('send-chat-message', document.querySelector('#msg-inp').value);
+        appendMessage(document.querySelector('#msg-inp').value);
+    })
+})
 
-
-/* Function for adding new div and append received data into them
 function appendMessage(message) {
-    const msgElement = document.createElement('div');
+    const msgElement = document.createElement('p');
     msgElement.innerText = message;
     msgContainer.append(msgElement);
-}
+};

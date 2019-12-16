@@ -6,6 +6,7 @@
 
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
   <script defer src="script.js"></script>
 </head>
 
@@ -25,40 +26,35 @@
     <br>
     <!-- Side navigation-->
 
-    <form action="/room" method="POST">
+    
       <ul>
         <% for(let i=0; i < data.length; i++){ %>
-          <li> <a name="userName" href="/<%= data[i].username %>"><%= data[i].username %></li></a>
+        <a><li> <%= data[i].username %> </li></a>
        <% } %>
       </ul>
-    </form>
-        <form action="/room" method="POST">
-            <input name="room" type="text" required>
-            <button type="submit">New Room</button>
-        </form>
-
+   
   </div>
 
   <!-- Main -->
   <div class="main">
-    <div id="chatbox">
-      <label id="username_chat">Username är inloggad</label>
-      <div id="msg-cont">
+      <div id="chatbox" >
+        <label id="username_chat">Username är inloggad</label>
+        <div id="msg-cont">
 
       </div>
     </div>
 
   </div>
 
-  <form method="POST" id="snd-cont" name="" action="/chat">
+  <form method="POST" id="snd-cont" name="" action="/chat"> 
 
-    <input id="msg-inp" type="text" name="msg-inp" placeholder="Skriv ditt meddelande.."></input><button id="snd-btn"
-      type="submit">Skicka</button>
-
+    <input id="msg-inp" type="text" name="msg-inp" placeholder="Skriv ditt meddelande.."></input><button id="snd-btn" type="submit">Skicka</button>
+  
   </form>
+  
 
-  <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
-  <script defer src="/script.js"></script>
+  <!--<script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script defer src="/script.js"></script>-->
 
 
 </body>

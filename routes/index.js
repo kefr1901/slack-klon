@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var multer = require('multer');
+
+var fs = require('fs');
 
 /* GET New User and Login page. */
 router.get('/', function (req, res) {
@@ -45,5 +48,19 @@ router.get('/', function (req, res) {
   });
 
 });*/
+
+// router.post('/uploadphoto', upload.single('myImage'), (req, res, next) => {
+//   console.log('går in i funktionen för att ladda upp en fil');
+//   const file = req.file;
+//   if (!file) {
+//     const error = new Error('Please upload a file')
+//     error.httpStatusCode = 400
+//     return next(error)
+//   }
+//     res.send(file);
+//     res.render("photo"); 
+// });
+
+
 
 module.exports = router;
