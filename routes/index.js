@@ -10,19 +10,12 @@ router.get('/chat', function (req, res) {
   let db = req.db;
   let collection = db.get("usercollection");
   collection.find({}, {}, function (e, data) {
-    console.log(data)
     if (e) {
       throw e;
     }
     res.render("chat", { data: data })
-
-
   });
-
-
 });
-
-
 
 /* GET users listing. THIS IS NOT IN USE ATM*/
 router.get('/list', function (req, res, next) {
