@@ -6,12 +6,55 @@ router.get('/', function (req, res) {
   res.render('index', { title: 'Add New User' });
 });
 
+<<<<<<< HEAD
 
 
 
 
 
 /*router.get('/chat', function (req, res) {
+=======
+router.get('/chat', function (req, res) {
+  let db = req.db;
+  let collection = db.get("usercollection");
+  collection.find({}, {}, function (e, data) {
+    if (e) {
+      throw e;
+    }
+    res.render("chat", { data: data })
+  });
+});
+
+/* GET users listing. THIS IS NOT IN USE ATM*/
+router.get('/list', function (req, res, next) {
+  var db = req.db;
+  var collection = db.get('usercollection');
+  collection.find({}, {}, function (e, data) {
+    res.render('list', {
+      "userlist": data
+    });
+  });
+});
+
+/* GET login - Check if there is a user with that name and password, then redirect to get request on line 37 */
+router.post('/login', function (req, res, next) {
+  let enteredUsername = req.body.username;
+  let enteredPassword = req.body.userpassword;
+  var db = req.db;
+  var collection = db.get('usercollection');
+  collection.findOne({ username: enteredUsername, userpassword: enteredPassword }, function (e, data) {
+    console.log(data);
+    if (e || data == null) {
+      console.log('Username or password is wrong')
+      res.redirect('/');
+    } else {
+      res.redirect('/chat'); //to avoid having /login in the address field in the browser
+    }
+  });
+});
+
+router.get('/chat', function (req, res) {
+>>>>>>> 84b99313a5f2f6cad2d4168a35ac0411c8f7e883
   res.render('chat')
 });
 

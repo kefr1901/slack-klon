@@ -1,14 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Slack-klon</title>
+    <title> </title>
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
     <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script defer src="script.js"></script>
+    <script>
+        const roomName = '<%= roomName %>'
+    </script>
 </head>
+
 <body>
-    
+    <!-- Head navigation -->
+
+
+    <div class="sidenav">
+
+        <img id="side_logo" src="images/talck_logo.png">
+        <h2 id="logo_text">SNACK</h2>
+        <br>
+        <button id="add_room_btn">Lägg till rum!</button>
+        <a href="#">#Channel</a>
+        <a href="#">#Skitsnack</a>
+        <hr>
+        <br>
+        <!-- Side navigation-->
+
+        <form action="/room" method="POST">
+            <ul>
+                
+                <% for(let i=0; i < data.length; i++){ %>
+                <li> <a href="/<%= data[i].username %>"><%= data[i].username %></li></a>
+                <% } %>
+            </ul>
+        </form>
+    </form>
+    <form action="/room" method="POST">
+        <input name="room" type="text" required>
+        <button type="submit">New Room</button>
+    </form>
+    </div>
+
+
+
+
+    <!-- Main -->
+    <div class="main">
+        <div id="chatbox">
+            <label id="username_chat">Username är inloggad</label>
+            <div id="msg-cont">
+
+            </div>
+        </div>
+
+    </div>
+
+    <form method="POST" id="snd-cont" name="" action="/room">
+
+        <input id="msg-inp" type="text" name="msg-inp" placeholder="Skriv ditt meddelande.."></input><button
+            id="snd-btn" type="submit">Skicka</button>
+
+    </form>
+
+
+
+
 </body>
+
 </html>
