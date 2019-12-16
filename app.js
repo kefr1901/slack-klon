@@ -5,9 +5,28 @@ var createError = require('http-errors');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var io = require('socket.io')(server);
+//DATABASE CONNECT
+let monk = require("monk");
+var db = monk('mongodb+srv://kevinfridman:Skateboard@cluster0-knble.mongodb.net/snackdb?retryWrites=true&w=majority');
+var io = require('socket.io')(server)
 
+//make out DB accesible to our router
+
+app.use(function (req, res, next) {
+  req.db = db;
+  next();
+})
+
+//var indexRouter = require('./routes/chat');
+var indexRouter = require("./routes/index");
+var usersRouter = require('./routes/users');
+var chatRouter = require("./routes/chat");
+
+
+
+// Object with the names of users
 const rooms = {};
+
 
 // Below happens when a user connects
 io.on('connection', socket => {
@@ -15,12 +34,23 @@ io.on('connection', socket => {
     socket.join(room);
     rooms[room].users[socket.id] = name;
     socket.to(room).broadcast.emit('user-connected', name);
+
   })
-  // When a message is sent from a user
+
+  // När en anvädare skriver
   socket.on('send-chat-message', (room, message) => {
-    socket.to(room).broadcast.emit('chat-message', {
+    let messageForDb = { //skapar ett objekt av meddelandet och vem som är användare
+      message: message, name:  //meddelande från personen
+        rooms[room].users[socket.id] //personID på personen
+    }
+
+    var collection = db.get('messagecollection');//skapar collection messagecollection
+    collection.insert(messageForDb); // Skickar objektet till databasen
+
+    socket.to(room).broadcast.emit('chat-message', {  //skriver ut till klienten
       message: message, name:
         rooms[room].users[socket.id]
+
     })
   })
   // When a user disconnects from chat
@@ -28,6 +58,7 @@ io.on('connection', socket => {
     getUserRooms(socket).forEach(room => {
       socket.to(room).broadcast.emit('user-disconnected', rooms[room].users[socket.id])
       delete rooms[room].users[socket.id]
+
     });
   })
 })
@@ -39,15 +70,19 @@ function getUserRooms(socket) {
   }, [])
 }
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/chat', chatRouter);
 
 app.post('/room', (req, res) => {
   if (rooms[req.body.room] != null) {
@@ -56,6 +91,7 @@ app.post('/room', (req, res) => {
   rooms[req.body.room] = { users: {} }
   res.redirect(req.body.room)
   io.emit('room-created', req.body.room);
+
 })
 
 app.get('/', (req, res) => {
@@ -67,11 +103,38 @@ app.get('/:room', (req, res) => {
   if (rooms[req.params.room] == null) {
     return res.redirect('/');
   }
-  res.render('room', { roomName: req.params.room })
+  let collection = db.get("usercollection");
+  collection.find({}, {}, function (e, data) {
+    res.render('room', { rooms: rooms, roomName: req.params.room, data: data })
+  })
 })
 
-// NEED TO ADD ROOM POST
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  next(createError(404));
+});
+
+// error handler
+app.use(function (err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
+
+
+//kan vara problem
+
+
+//app.listen(4000, () => console.log("Server is running on port 4000")); //appens server
+
+//app.use('/', indexRouter);
+
 
 server.listen(3000);
 
 module.exports = app;
+

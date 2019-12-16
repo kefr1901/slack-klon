@@ -20,7 +20,7 @@ if (msgForm != null) {
     })
 }
 
-socket.on('room-created', room => {
+/*socket.on('room-created', room => {
     const roomElement = document.createElement('div');
     roomElement.innderText = room;
     const roomLink = document.createElement('a');
@@ -28,7 +28,7 @@ socket.on('room-created', room => {
     roomLink.innerText = 'join';
     roomCont.append(roomElement);
     roomCont.append(roomLink);
-})
+})*/
 
 // Adds message written onto html page in the specified container
 socket.on('chat-message', data => {
