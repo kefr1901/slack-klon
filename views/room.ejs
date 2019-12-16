@@ -21,10 +21,7 @@
         <img id="side_logo" src="images/talck_logo.png">
         <h2 id="logo_text">SNACK</h2>
         <br>
-        <form action="/room" method="POST">
-            <input name="room" type="text" required>
-            <button id="add_room_btn">Lägg till rum!</button>
-        </form>
+
         <a href="#">#Channel</a>
         <a href="#">#Skitsnack</a>
         <hr>
@@ -39,11 +36,7 @@
                 <% } %>
             </ul>
         </form>
-    </form>
-    <form action="/room" method="POST">
-        <input name="room" type="text" required>
-        <button type="submit">New Room</button>
-    </form>
+    
     </div>
 
 
@@ -52,13 +45,24 @@
     <!-- Main -->
     <div class="main">
         <div id="chatbox">
-            <label id="username_chat">Username är inloggad</label>
+            <label id="username_chat">Welcome!</label>
             <div id="msg-cont">
 
             </div>
         </div>
 
     </div>
+
+    <form method="POST" id="snd-cont" name="" action="/room">
+
+        <input id="msg-inp" type="text" name="msg-inp" placeholder="Skriv ditt meddelande.."></input><button
+            id="snd-btn" type="submit">Skicka</button>
+
+    </form>
+
+
+
+
 </body>
 
 </html>

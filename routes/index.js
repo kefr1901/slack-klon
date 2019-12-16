@@ -39,14 +39,11 @@ router.post('/login', function (req, res, next) {
     if (e || data == null) {
       console.log('Username or password is wrong')
       res.redirect('/');
-    } else {
+    } else {      
       res.redirect('/chat'); //to avoid having /login in the address field in the browser
+      
     }
   });
-});
-
-router.get('/chat', function (req, res) {
-  res.render('chat')
 });
 
 /* POST to Add User Service */
@@ -71,8 +68,13 @@ router.post('/chat', function (req, res) {
       res.send("There was a problem adding the information to the database.");
     }
     else {
+      var db = req.db;
+      var collection = db.get('usercollection');
+      collection.find({}, {}, function (e, data) {
+        res.render("chat", { username: userName, data: data});
+      })
       // And forward to success page
-      res.render("chat");
+      
       // res.redirect("list"); this was the old shit when printing all the users as a list
     }
   });
