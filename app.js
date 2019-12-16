@@ -8,6 +8,7 @@ var db = monk('mongodb+srv://patrikjohansson:Skateboard@cluster0-knble.mongodb.n
 
 // var indexRouter = require('./routes/index');
 var indexRouter = require('./routes/index');
+var chatRouter = require('./routes/chat');
 
 var app = express();
 
@@ -17,7 +18,7 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true })); //changed from false to true to make file upload work
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -27,6 +28,7 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.use('/chat', chatRouter);
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 

@@ -1,5 +1,20 @@
 var express = require('express');
 var router = express.Router();
+var multer = require('multer');
+var upload = multer({ storage: storage });
+var fs = require('fs');
+
+// SET STORAGE for the photo upload
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  // By default, multer removes file extensions so let's add them back
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now());
+  }
+});
+// var upload = multer({ storage: storage });
 
 /* GET New User and Login page. */
 router.get('/', function (req, res) {
@@ -67,6 +82,41 @@ router.post('/chat', function (req, res) {
     }
   });
 
+});
+
+// router.post('/uploadphoto', upload.single('myImage'), (req, res, next) => {
+//   console.log('går in i funktionen för att ladda upp en fil');
+//   const file = req.file;
+//   if (!file) {
+//     const error = new Error('Please upload a file')
+//     error.httpStatusCode = 400
+//     return next(error)
+//   }
+//     res.send(file);
+//     res.render("photo"); 
+// });
+
+//posting an image to the db when submitting
+router.post('/uploadphoto', upload.single('myImage'), (req, res) => {
+  console.log('går in i funktionen');
+  var img = fs.readFileSync(req.file.path);
+  var encode_image = img.toString('base64');
+  // Define a JSONobject for the image attributes for saving to database
+
+  var photocollection = db.get('photocollection');
+
+  var finalImg = {
+    contentType: req.file.mimetype,
+    image:  new Buffer(encode_image, 'base64')
+  };
+  photocollection('quotes').insertOne(finalImg, (err, result) => {
+    console.log(result)
+
+    if (err) return console.log(err)
+
+    console.log('saved to database');
+    res.redirect('/chat');
+  });
 });
 
 module.exports = router;

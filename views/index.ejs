@@ -12,7 +12,7 @@
 <body>
     <div id="container">
         <div id="forms">
-                <img src="../../images/bubbles.png" alt="pic">
+                <img src="/images/bubbles.png" alt="pic">
                 <form id="formAddUser" name="adduser" method="post" action="/chat">
                     <div class="form-group">
                         <label for="inputUserName">Username</label>
@@ -23,6 +23,11 @@
                         <input type="text" class="form-control" id="inputUserPassword" name="userpassword" placeholder="password">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
+                </form><br>
+
+                <form action="/uploadphoto" enctype="multipart/form-data" method="POST"> 
+                    <input type="file" name="myImage" accept="image/*" />
+                    <button type="submit">Upload photo</button>
                 </form>
                 
                 <form id="formLogin" name="loginuser" method="POST" action="/login">
@@ -76,7 +81,8 @@
     }
 
     #forms {
-        border: 2px solid #31b37a;
+        /* border: 2px solid #31b37a; */
+        background: white;
         width:fit-content;
         padding: 10px;
         margin: 0 auto;
