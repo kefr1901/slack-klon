@@ -4,7 +4,6 @@ const msgForm = document.getElementById('snd-cont');
 const messageInput = document.getElementById('msg-inp');
 
 
-
 let userId = document.cookie.replace('user=', '');
 
 let name;
@@ -41,10 +40,9 @@ msgForm.addEventListener('submit', event => {
     messageInput.value = '';
 })
 
-// Function for adding new div and append received data into them
+/* Function for adding new div and append received data into them
 function appendMessage(message) {
     const msgElement = document.createElement('p');
     msgElement.innerText = message;
     msgContainer.append(msgElement);
-}
-
+}*/
