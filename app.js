@@ -27,6 +27,14 @@ var chatRouter = require("./routes/chat");
 // Object with the names of users
 const rooms = {};
 
+let collection = db.get("usercollection");
+
+  collection.find({}, function (e, data) {
+    for(i = 0; i < data.length; i++){
+      if(data[i].username != rooms[data[i].username])
+      rooms[data[i].username] = {users: {}}
+  }
+  })
 
 // Below happens when a user connects
 io.on('connection', socket => {
@@ -42,8 +50,8 @@ io.on('connection', socket => {
     let messageForDb = { //skapar ett objekt av meddelandet och vem som är användare
       message: message, name:  //meddelande från personen
         rooms[room].users[socket.id] //personID på personen
+        
     }
-
     var collection = db.get('messagecollection');//skapar collection messagecollection
     collection.insert(messageForDb); // Skickar objektet till databasen
 
