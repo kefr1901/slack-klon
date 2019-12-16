@@ -4,7 +4,6 @@ const msgForm = document.getElementById('snd-cont');
 const messageInput = document.getElementById('msg-inp');
 const roomCont = document.getElementById('room-cont');
 
-<<<<<<< HEAD
 
 
 let userId = document.cookie.replace('user=', '');
@@ -17,8 +16,8 @@ fetch('/user/' + userId).then(res => res.json()).then(user => {
     appendMessage(name + " " + ' has joined');
     socket.emit('new-user', name);
 })
-=======
-if (msgForm != null) {
+
+/*if (msgForm != null) {
     // Prompts user for name (will be replaced by login screen)
     const name = prompt('What is your name?');
     appendMessage('You joined');
@@ -43,7 +42,6 @@ if (msgForm != null) {
     roomCont.append(roomElement);
     roomCont.append(roomLink);
 })*/
->>>>>>> 84b99313a5f2f6cad2d4168a35ac0411c8f7e883
 
 // Adds message written onto html page in the specified container
 socket.on('chat-message', data => {
