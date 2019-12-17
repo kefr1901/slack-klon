@@ -1,4 +1,4 @@
-const socket = io('http://localhost:3000');
+const socket = io();
 const msgContainer = document.getElementById('msg-cont');
 const msgForm = document.getElementById('snd-cont');
 const messageInput = document.getElementById('msg-inp');
@@ -31,6 +31,16 @@ if (msgForm != null) {
     roomCont.append(roomLink);
 })*/
 
+let userId = document.cookie.replace('user=', '');
+let name;
+//hämtar användarnamnet från databasen sparat som en coockie för att få ut "rätt" namn från DB
+fetch('chat/user/' + userId).then(res => res.json()).then(user => {
+    console.log(user);
+    name = user.username;
+    appendMessage(name + " " + ' has joined the chat!');
+    socket.emit('new-user', name);
+})
+
 // Adds message written onto html page in the specified container
 socket.on('chat-message', data => {
     appendMessage(`${data.name}: ${data.message}`);
@@ -43,14 +53,19 @@ socket.on('user-connected', name => {
 
 // When user disconnects message with user name is displayed
 socket.on('user-disconnected', name => {
-    appendMessage(`${name} disconnected`);
+    appendMessage(`${name} disconnected from the chat!`);
 })
 
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('#snd-btn').addEventListener('click', e => {
+        e.preventDefault();
+        socket.emit('send-chat-message', document.querySelector('#msg-inp').value);
+        appendMessage(document.querySelector('#msg-inp').value);
+    })
+})
 
-
-// Function for adding new div and append received data into them
 function appendMessage(message) {
-    const msgElement = document.createElement('div');
+    const msgElement = document.createElement('p');
     msgElement.innerText = message;
     msgContainer.append(msgElement);
-}
+};

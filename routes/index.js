@@ -1,53 +1,25 @@
 var express = require('express');
 var router = express.Router();
+// var multer = require('multer');
+
+// var fs = require('fs');
 
 /* GET New User and Login page. */
 router.get('/', function (req, res) {
   res.render('index', { title: 'Add New User' });
 });
 
-router.get('/chat', function (req, res) {
-  let db = req.db;
-  let collection = db.get("usercollection");
-  collection.find({}, {}, function (e, data) {
-    if (e) {
-      throw e;
-    }
-    res.render("chat", { data: data })
-  });
-});
 
-/* GET users listing. THIS IS NOT IN USE ATM*/
-router.get('/list', function (req, res, next) {
-  var db = req.db;
-  var collection = db.get('usercollection');
-  collection.find({}, {}, function (e, data) {
-    res.render('list', {
-      "userlist": data
-    });
-  });
-});
 
-/* GET login - Check if there is a user with that name and password, then redirect to get request on line 37 */
-router.post('/login', function (req, res, next) {
-  let enteredUsername = req.body.username;
-  let enteredPassword = req.body.userpassword;
-  var db = req.db;
-  var collection = db.get('usercollection');
-  collection.findOne({ username: enteredUsername, userpassword: enteredPassword }, function (e, data) {
-    console.log(data);
-    if (e || data == null) {
-      console.log('Username or password is wrong')
-      res.redirect('/');
-    } else {      
-      res.redirect('/chat'); //to avoid having /login in the address field in the browser
-      
-    }
-  });
+
+
+
+/*router.get('/chat', function (req, res) {
+  res.render('chat')
 });
 
 /* POST to Add User Service */
-router.post('/chat', function (req, res) {
+/*router.post('/chat', function (req, res) {
 
   // Set our internal DB variable
   var db = req.db;
@@ -55,6 +27,7 @@ router.post('/chat', function (req, res) {
   // Get our form values. These rely on the "name" attributes
   var userName = req.body.username;
   var userPassword = req.body.userpassword;
+
   // Set our collection
   var collection = db.get('usercollection');
 
@@ -68,17 +41,26 @@ router.post('/chat', function (req, res) {
       res.send("There was a problem adding the information to the database.");
     }
     else {
-      var db = req.db;
-      var collection = db.get('usercollection');
-      collection.find({}, {}, function (e, data) {
-        res.render("chat", { username: userName, data: data});
-      })
       // And forward to success page
-      
+      res.render("chat");
       // res.redirect("list"); this was the old shit when printing all the users as a list
     }
   });
 
-});
+});*/
+
+// router.post('/uploadphoto', upload.single('myImage'), (req, res, next) => {
+//   console.log('går in i funktionen för att ladda upp en fil');
+//   const file = req.file;
+//   if (!file) {
+//     const error = new Error('Please upload a file')
+//     error.httpStatusCode = 400
+//     return next(error)
+//   }
+//     res.send(file);
+//     res.render("photo"); 
+// });
+
+
 
 module.exports = router;

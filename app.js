@@ -1,27 +1,35 @@
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
-var createError = require('http-errors');
+// var createError = require('http-errors');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
 //DATABASE CONNECT
 let monk = require("monk");
-var db = monk('mongodb+srv://kevinfridman:Skateboard@cluster0-knble.mongodb.net/snackdb?retryWrites=true&w=majority');
-var io = require('socket.io')(server)
+var db = monk('mongodb+srv://patrikjohansson:Skateboard@cluster0-knble.mongodb.net/snackdb?retryWrites=true&w=majority');
+var io = require('socket.io')(server);
+const cookieSession = require('cookie-session');
 
 //make out DB accesible to our router
-
 app.use(function (req, res, next) {
   req.db = db;
   next();
-})
+});
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}))
 
 //var indexRouter = require('./routes/chat');
 var indexRouter = require("./routes/index");
-var usersRouter = require('./routes/users');
+// var usersRouter = require('./routes/users');
 var chatRouter = require("./routes/chat");
-
+var loginRouter = require("./routes/login");
+var uploadRouter = require("./routes/upload");
+var registerRouter = require("./routes/register");
 
 
 // Object with the names of users
@@ -36,7 +44,7 @@ let collection = db.get("usercollection");
   }
   })
 
-// Below happens when a user connects
+// När en användare connectar till chatten
 io.on('connection', socket => {
   socket.on('new-user', (room, name) => {
     rooms[room].users[socket.id] = name;

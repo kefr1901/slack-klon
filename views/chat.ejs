@@ -6,6 +6,10 @@
 
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+<<<<<<< HEAD
+=======
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+>>>>>>> develompent2
   <script defer src="script.js"></script>
 </head>
 
@@ -18,16 +22,21 @@
     <img id="side_logo" src="images/talck_logo.png">
     <h2 id="logo_text">SNACK</h2>
     <br>
+<<<<<<< HEAD
     <form action="/room" method="POST">
       <input name="room" type="text" required>
       <button id="add_room_btn">Lägg till rum!</button>
   </form>
     
+=======
+    <button id="add_room_btn">Lägg till rum!</button>
+>>>>>>> develompent2
     <a href="#">#Channel</a>
     <a href="#">#Skitsnack</a>
     <hr>
     <br>
     <!-- Side navigation-->
+<<<<<<< HEAD
 
     <div id="room-cont">
 
@@ -52,11 +61,45 @@
     <div id="chatbox">
       <label id="username_chat"></label>
       <div id="msg-cont">
+=======
+    <h2>USERS</h2>
+    <div id="useronline">
+      
+        <% for(let i=0; i < data.length; i++){ %>
+        <a><li> <i id="person" class="fas fa-user"> </i> <%= data[i].username %> </li></a>
+       <% } %>
+      
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+      <div id="chatbox" >
+        <div id="msg-cont">
+>>>>>>> develompent2
 
       </div>
     </div>
 
   </div>
+<<<<<<< HEAD
 </body>
 
 </html>
+=======
+
+  <form method="POST" id="snd-cont" name="" action="/chat"> 
+
+    <input id="msg-inp" type="text" name="msg-inp" placeholder="Skriv ditt meddelande.."></input><button id="snd-btn" type="submit">Skicka</button>
+  
+  </form>
+  
+
+  <!--<script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script defer src="/script.js"></script>-->
+
+  <script src="https://kit.fontawesome.com/692051db43.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
+>>>>>>> develompent2
