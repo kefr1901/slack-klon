@@ -133,5 +133,10 @@ ul{
   margin-left: 0;
 }
 
+#imageContainer {
+  width: 200px;
+  margin: 0 auto;
+}
+
 
 

@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var multer = require('multer');
+// var multer = require('multer');
 
-var fs = require('fs');
+// var fs = require('fs');
 
 /* GET New User and Login page. */
 router.get('/', function (req, res) {
