@@ -6,10 +6,7 @@
 
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
-<<<<<<< HEAD
-=======
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
->>>>>>> develompent2
   <script defer src="script.js"></script>
 </head>
 
@@ -22,46 +19,16 @@
     <img id="side_logo" src="images/talck_logo.png">
     <h2 id="logo_text">SNACK</h2>
     <br>
-<<<<<<< HEAD
     <form action="/room" method="POST">
       <input name="room" type="text" required>
       <button id="add_room_btn">Lägg till rum!</button>
   </form>
     
-=======
-    <button id="add_room_btn">Lägg till rum!</button>
->>>>>>> develompent2
     <a href="#">#Channel</a>
     <a href="#">#Skitsnack</a>
     <hr>
     <br>
     <!-- Side navigation-->
-<<<<<<< HEAD
-
-    <div id="room-cont">
-
-    </div>
-
-    <form action="/room" method="POST">
-      <ul>
-          
-          <% for(let i=0; i < data.length; i++){ %>
-          <li> <a href="/<%= data[i].username %>"><%= data[i].username %></li></a>
-          <% } %>
-      </ul>
-  </form>
-
-  </div>
-
-
-
-
-  <!-- Main -->
-  <div class="main">
-    <div id="chatbox">
-      <label id="username_chat"></label>
-      <div id="msg-cont">
-=======
     <h2>USERS</h2>
     <div id="useronline">
       
@@ -76,17 +43,11 @@
   <div class="main">
       <div id="chatbox" >
         <div id="msg-cont">
->>>>>>> develompent2
 
       </div>
     </div>
 
   </div>
-<<<<<<< HEAD
-</body>
-
-</html>
-=======
 
   <form method="POST" id="snd-cont" name="" action="/chat"> 
 
@@ -102,4 +63,3 @@
 </body>
 
 </html>
->>>>>>> develompent2
