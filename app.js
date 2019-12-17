@@ -122,17 +122,18 @@ app.get('/:room', (req, res) => {
   if (rooms[req.params.room] == null) {
     return res.redirect('/');
   }
-  let collection = db.get("usercollection");
-  collection.find({}, {}, function (e, data) {
-
-  var roomName = req.params.room;
-  var collection = db.get('roomcollection');
-
-  collection.insert({
-    "roomname": roomName
-  })
+  var roomcollection = db.get('roomcollection');
+  roomcollection.find({}, {}, function (e, data) {
+    var roomName = req.params.room;
+    roomcollection.insert({
+      "roomname": roomName
+    })
+  let usercollection = db.get("usercollection");
+  usercollection.find({}, {}, function (e, data) {
+    
     res.render('room', { rooms: rooms, roomName: req.params.room, data: data })
   })
+})
 })
 
 // catch 404 and forward to error handler
