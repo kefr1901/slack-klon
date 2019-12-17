@@ -97,8 +97,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
 app.use('/chat', chatRouter);
+app.use('/login', loginRouter);
+app.use('/upload', uploadRouter);
+app.use('/register', registerRouter);
 
 app.post('/room', (req, res) => {
   if (rooms[req.body.room] != null) {
@@ -157,7 +160,7 @@ app.use(function (err, req, res, next) {
 //app.use('/', indexRouter);
 
 
-server.listen(3000);
+server.listen(3001);
 
 module.exports = app;
 
