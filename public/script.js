@@ -6,11 +6,11 @@ const messageInput = document.getElementById('msg-inp');
 
 let userId = document.cookie.replace('user=', '');
 let name;
-
+//hämtar användarnamnet från databasen sparat som en coockie för att få ut "rätt" namn från DB
 fetch('chat/user/' + userId).then(res => res.json()).then(user => {
     console.log(user);
     name = user.username;
-    appendMessage(name + " " + ' has joined');
+    appendMessage(name + " " + ' has joined the chat!');
     socket.emit('new-user', name);
 })
 
@@ -21,12 +21,12 @@ socket.on('chat-message', data => {
 
 // On user connect, adds user's name and connected message
 socket.on('user-connected', name => {
-    appendMessage(`${name} connected`);
+    appendMessage(`${name} connected to the chat!`);
 })
 
 // When user disconnects message with user name is displayed
 socket.on('user-disconnected', name => {
-    appendMessage(`${name} disconnected`);
+    appendMessage(`${name} disconnected from the chat!`);
 })
 
 document.addEventListener('DOMContentLoaded', () => {

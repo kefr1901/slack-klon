@@ -25,20 +25,19 @@
     <hr>
     <br>
     <!-- Side navigation-->
-
-    
-      <ul>
+    <h2>USERS</h2>
+    <div id="useronline">
+      
         <% for(let i=0; i < data.length; i++){ %>
-        <a><li> <%= data[i].username %> </li></a>
+        <a><li> <i id="person" class="fas fa-user"> </i> <%= data[i].username %> </li></a>
        <% } %>
-      </ul>
-   
+      
+    </div>
   </div>
 
   <!-- Main -->
   <div class="main">
       <div id="chatbox" >
-        <label id="username_chat">Username är inloggad</label>
         <div id="msg-cont">
 
       </div>
@@ -56,7 +55,7 @@
   <!--<script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
   <script defer src="/script.js"></script>-->
 
-
+  <script src="https://kit.fontawesome.com/692051db43.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
