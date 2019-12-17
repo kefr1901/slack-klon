@@ -21,7 +21,10 @@
         <img id="side_logo" src="images/talck_logo.png">
         <h2 id="logo_text">SNACK</h2>
         <br>
-
+        <form action="/room" method="POST">
+        <input name="room" type="text" required>
+        <button id="add_room_btn" type="submit">Lägg till rum!</button>
+    </form>
         <a href="#">#Channel</a>
         <a href="#">#Skitsnack</a>
         <hr>
@@ -45,7 +48,7 @@
     <!-- Main -->
     <div class="main">
         <div id="chatbox">
-            <label id="username_chat">Welcome!</label>
+            <label id="username_chat">Username är inloggad</label>
             <div id="msg-cont">
 
             </div>

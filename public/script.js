@@ -3,11 +3,12 @@ const msgContainer = document.getElementById('msg-cont');
 const msgForm = document.getElementById('snd-cont');
 const messageInput = document.getElementById('msg-inp');
 const roomCont = document.getElementById('room-cont');
+const loginCont = document.getElementById('formLogin');
 
 if (msgForm != null) {
     // Prompts user for name (will be replaced by login screen)
     const name = prompt('What is your name?');
-    appendMessage('You joined');
+    appendMessage(`${name} joined`);
     socket.emit('new-user', roomName, name);
 
     // Listens to submit button and handles data from form

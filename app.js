@@ -39,10 +39,9 @@ let collection = db.get("usercollection");
 // Below happens when a user connects
 io.on('connection', socket => {
   socket.on('new-user', (room, name) => {
-    socket.join(room);
     rooms[room].users[socket.id] = name;
     socket.to(room).broadcast.emit('user-connected', name);
-
+    
   })
 
   // När en anvädare skriver
@@ -61,6 +60,7 @@ io.on('connection', socket => {
 
     })
   })
+
   // When a user disconnects from chat
   socket.on('disconnect', () => {
     getUserRooms(socket).forEach(room => {
@@ -113,6 +113,13 @@ app.get('/:room', (req, res) => {
   }
   let collection = db.get("usercollection");
   collection.find({}, {}, function (e, data) {
+
+  var roomName = req.params.room;
+  var collection = db.get('roomcollection');
+
+  collection.insert({
+    "roomname": roomName
+  })
     res.render('room', { rooms: rooms, roomName: req.params.room, data: data })
   })
 })
