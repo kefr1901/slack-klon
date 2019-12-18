@@ -15,8 +15,8 @@
 
   <div class="sidenav">
 
-    <img id="side_logo" src="images/talck_logo.png">
-    <h2 id="logo_text">SNACK</h2>
+    <img id="side_logo" src="images/logo4.png">
+    <!-- <h2 id="logo_text">SNACK</h2> -->
     <br>
     <button id="add_room_btn">Lägg till rum!</button>
     <a href="#" ># Main Channel</a>
@@ -24,10 +24,23 @@
     <hr>
     <br>
     <!-- Side navigation-->
-    <div id="profil_pic">
-      
-    </div>
-    <h2> REGISTERED USERS</h2>
+    
+    <!-- Image uploadpart -->
+    <div class="formContainer">
+      <%= typeof msg != 'undefined' ? msg : '' %>
+      <h3 class="formH3">Upload an image</h3>
+      <form id="formUpload" action="/upload" method="POST" enctype="multipart/form-data">
+          <input type="file" name="myImage">
+          <button type="submit">Upload</button>
+          <div id="imageContainer">
+              <img src="<%= typeof file != 'undefined' ? file : '' %>" alt="profilepic" onerror="this.style.display = 'none'">
+          </div>
+      </form>
+    </div><BR>
+    <!-- Image uploadpart ENDS here -->
+
+    <div id="profileDiv"></div>
+    <h2>USERS</h2>
     <div id="useronline">
       
         <% for(let i=0; i < data.length; i++){ %>
