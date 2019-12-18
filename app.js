@@ -30,12 +30,17 @@ var chatRouter = require("./routes/chat");
 var loginRouter = require("./routes/login");
 var uploadRouter = require("./routes/upload");
 var registerRouter = require("./routes/register");
+var roomRouter = require("./routes/newroom");
 
 
 // Object with the names of users
 const rooms = {};
 
-let collection = db.get("usercollection");
+let maincollection = db.get("mainservercollection");
+
+
+
+let collection = db.get("roomcollection");
 
   collection.find({}, function (e, data) {
     for(i = 0; i < data.length; i++){
@@ -47,9 +52,11 @@ let collection = db.get("usercollection");
 // När en användare connectar till chatten
 io.on('connection', socket => {
   socket.on('new-user', (room, name) => {
+    console.log("THIS", name, room);
+    socket.join(room);
     rooms[room].users[socket.id] = name;
     socket.to(room).broadcast.emit('user-connected', name);
-    
+    console.log(rooms);
   })
 
   // När en anvädare skriver
@@ -102,37 +109,40 @@ app.use('/chat', chatRouter);
 app.use('/login', loginRouter);
 app.use('/upload', uploadRouter);
 app.use('/register', registerRouter);
+app.use('/newroom', roomRouter);
 
-app.post('/room', (req, res) => {
+app.post('/newroom', (req, res) => {
   if (rooms[req.body.room] != null) {
     return res.redirect('/');
   }
   rooms[req.body.room] = { users: {} }
   res.redirect(req.body.room)
-  io.emit('room-created', req.body.room);
+  
+
 
 })
 
-app.get('/', (req, res) => {
-  res.render('index', { rooms: rooms })
-})
 
 // Gets the rooms created (need to make this work with database) and their names
 app.get('/:room', (req, res) => {
   if (rooms[req.params.room] == null) {
     return res.redirect('/');
   }
+  let roomcollection = db.get("roomcollection");
+  collection.find({}, {}, function (e, dbroom) {
   let collection = db.get("usercollection");
   collection.find({}, {}, function (e, data) {
 
   var roomName = req.params.room;
-  var collection = db.get('roomcollection');
 
   collection.insert({
     "roomname": roomName
   })
-    res.render('room', { rooms: rooms, roomName: req.params.room, data: data })
+  io.emit('room-created', req.params.room);
+  console.log();req.params
+    res.render('room', { rooms: dbroom, roomName: req.params.room, data: data })
   })
+})
 })
 
 // catch 404 and forward to error handler

@@ -5,17 +5,33 @@ const messageInput = document.getElementById('msg-inp');
 const roomCont = document.getElementById('room-cont');
 const loginCont = document.getElementById('formLogin');
 
+/*if (msgForm != null) {
+    // Prompts user for name (will be replaced by login screen)
+    const name = prompt('What is your name?');
+    appendMessage(`${name} joined`);
+    socket.emit('new-user', roomName, name);
+    console.log(roomName);
 
+    // Listens to submit button and handles data from form
+    msgForm.addEventListener('submit', event => {
+        event.preventDefault();
+        const message = messageInput.value;
+        appendMessage(`You: ${message}`);
+        socket.emit('send-chat-message', roomName, message);
+        messageInput.value = '';
+    })
+}*/
 
-/*socket.on('room-created', room => {
+socket.on('room-created', room => {
+    console.log("THISROOM", room);
     const roomElement = document.createElement('div');
-    roomElement.innderText = room;
+    roomElement.innerText = room;
     const roomLink = document.createElement('a');
     roomLink.href = `/${room}`;
     roomLink.innerText = 'join';
     roomCont.append(roomElement);
     roomCont.append(roomLink);
-})*/
+})
 
 let userId = document.cookie.replace('user=', '');
 let name;
@@ -45,7 +61,8 @@ socket.on('user-disconnected', name => {
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#snd-btn').addEventListener('click', e => {
         e.preventDefault();
-        socket.emit('send-chat-message', document.querySelector('#msg-inp').value);
+        console.log("FOCUSONTHIS", rooms);
+        socket.emit('send-chat-message', (roomName, document.querySelector('#msg-inp').value));
         appendMessage(document.querySelector('#msg-inp').value);
     })
 })

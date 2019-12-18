@@ -5,7 +5,7 @@
     <title> </title>
 
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script defer src="script.js"></script>
     <script>
         const roomName = '<%= roomName %>'
@@ -23,13 +23,14 @@
         <br>
         <form action="/room" method="POST">
         <input name="room" type="text" required>
-        <button id="add_room_btn" type="submit">Lägg till rum!</button>
+        <button type="submit">Lägg till rum!</button>
     </form>
         <a href="#">#Channel</a>
         <a href="#">#Skitsnack</a>
         <hr>
         <br>
         <!-- Side navigation-->
+        
 
         <form action="/room" method="POST">
             <ul>
@@ -39,11 +40,6 @@
                 <% } %>
             </ul>
         </form>
-    </form>
-    <form action="/room" method="POST">
-        <input name="room" type="text" required>
-        <button type="submit">New Room</button>
-    </form>
     </div>
 
 
@@ -60,7 +56,7 @@
 
     </div>
 
-    <form method="POST" id="snd-cont" name="" action="/room">
+    <form id="snd-cont">
 
         <input id="msg-inp" type="text" name="msg-inp" placeholder="Skriv ditt meddelande.."></input><button
             id="snd-btn" type="submit">Skicka</button>
