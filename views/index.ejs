@@ -13,7 +13,7 @@
     <div id="container">
         <div class="forms">
                 <div id="header">
-                    <img src="/images/logo3.png" alt="logo">
+                    <img src="/images/logo4.png" alt="logo">
                 </div>
                 <div class="formContainer">
                     <h3 class="formH3">Create new user</h3>
@@ -22,23 +22,10 @@
                             <input type="text" class="form-control" id="inputUserName" name="username" placeholder="Username">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="inputUserPassword" name="userpassword" placeholder="Password">
+                            <input type="password" class="form-control" id="inputUserPassword" name="userpassword" placeholder="Password">  
                         </div>
-                        <button type="submit" class="btn btn-primary">Create</button>
-                    </form><br>
-                </div>
-
-                <div class="formContainer">
-                    <%= typeof msg != 'undefined' ? msg : '' %>
-                    <h3 class="formH3">Upload an image</h3>
-                    <form id="formUpload" action="/upload" method="POST" enctype="multipart/form-data">
-                        <input type="file" name="myImage">
-                        <button type="submit">Upload</button>
-                        <div id="imageContainer">
-                            <img src="<%= typeof file != 'undefined' ? file : '' %>" alt="profilepic" onerror="this.style.display = 'none'">
-                        </div>
+                        <button type="submit">Create</button>
                     </form>
-                    
                 </div>
 
         </div>
@@ -50,7 +37,7 @@
                             <input type="text" class="form-control" id="inputUserName" name="username" placeholder="Username">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="inputUserPassword" name="userpassword" placeholder="Password">
+                            <input type="password" class="form-control" id="inputUserPassword" name="userpassword" placeholder="Password">
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>
@@ -68,6 +55,14 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script> -->
     </div>
+    <!-- <script>
+        submitForms = function() {
+        document.getElementById("formAddUser").submit();
+        document.getElementById("formUpload").submit();
+        console.log("DENNA DRAS IGÅNG HEJEJEJ");
+    }
+    </script> -->
+    
 </body>
 
 <style>

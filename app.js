@@ -20,7 +20,7 @@ app.use(function (req, res, next) {
 
 app.use(cookieSession({
   name: 'session',
-  keys: ['key1', 'key2']
+  keys: ['key1', 'key2', 'key3']
 }))
 
 //var indexRouter = require('./routes/chat');
@@ -30,6 +30,8 @@ var chatRouter = require("./routes/chat");
 var loginRouter = require("./routes/login");
 var uploadRouter = require("./routes/upload");
 var registerRouter = require("./routes/register");
+var roomRouter = require("./routes/room");
+
 
 
 // Object with the names of users
@@ -103,11 +105,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 app.use('/chat', chatRouter);
-app.use('/login', loginRouter);
-app.use('/upload', uploadRouter);
-app.use('/register', registerRouter);
+app.use("/login", loginRouter);
+app.use("/upload", uploadRouter);
+app.use("/register", registerRouter);
+app.use("/room", roomRouter)
 
-app.post('/room', (req, res) => {
+
+/*app.post('/room', (req, res) => {
   if (rooms[req.body.room] != null) {
     return res.redirect('/');
   }
@@ -137,28 +141,7 @@ console.log(roomName);
     res.render('room', { rooms: dbroom, roomName: req.params.room, data: data })
   })
 })
-})
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-
-//kan vara problem
-
-
+})*/
 //app.listen(4000, () => console.log("Server is running on port 4000")); //appens server
 
 //app.use('/', indexRouter);

@@ -15,25 +15,41 @@
 
   <div class="sidenav">
 
-    <img id="side_logo" src="images/talck_logo.png">
-    <h2 id="logo_text">SNACK</h2>
+    <img id="side_logo" src="images/logo4.png">
+    <!-- <h2 id="logo_text">SNACK</h2> -->
     <br>
-    <form action="/room" method="POST">
-      <input name="room" type="text" required>
-      <button id="add_room_btn">Lägg till rum!</button>
-  </form>
+    <form action="/room" method="GET">
+      <input id="name" name="room" type="text">
+      <button type="submit" id="add_room_btn">Lägg till rum!</button>
+    </form>
     
-    <a href="#">#Channel</a>
-    <a href="#">#Skitsnack</a>
+    <a href="#" ># Main Channel</a>
+  
     <hr>
     <br>
     <!-- Side navigation-->
+    
+    <!-- Image uploadpart -->
+    <div class="formContainer">
+      <%= typeof msg != 'undefined' ? msg : '' %>
+      <h3 class="formH3">Upload an image</h3>
+      <form id="formUpload" action="/upload" method="POST" enctype="multipart/form-data">
+          <input type="file" name="myImage">
+          <button type="submit">Upload</button>
+          <div id="imageContainer">
+              <img src="<%= typeof file != 'undefined' ? file : '' %>" alt="profilepic" onerror="this.style.display = 'none'">
+          </div>
+      </form>
+    </div><BR>
+    <!-- Image uploadpart ENDS here -->
+
+    
     <h2>USERS</h2>
     <div id="useronline">
       
-        <% for(let i=0; i < data.length; i++){ %>
+      <% for(let i=0; i < data.length; i++){ %>
         <a><li> <i id="person" class="fas fa-user"> </i> <%= data[i].username %> </li></a>
-       <% } %>
+      <% } %>
       
     </div>
   </div>
@@ -42,7 +58,15 @@
   <div class="main">
       <div id="chatbox" >
         <div id="msg-cont">
-
+            <% for(let i=0; i < message.length; i++){ %>
+              <div class="chatbox_output">
+                <%= message[i].name %>     
+                   <%= "earlier said:" %>
+              <%= message[i].message %>
+              
+            </div>
+              
+              <% } %>
       </div>
     </div>
 

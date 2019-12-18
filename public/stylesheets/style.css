@@ -23,6 +23,7 @@ a {
   background-color: rgb(76, 12, 78); 
   overflow-x: hidden; 
   padding-top: 20px;
+  text-align: center;
 }
 
 
@@ -56,16 +57,16 @@ a {
 }
 
 #side_logo{
-  height: 70px;
-  width: 70px;
+  /* height: 70px; */
+  width: 100px;
   display: flex;
   margin: 0 auto;
 
 }
 
 #msg-inp, #nameinput{
-  margin-left: 600px;
-  width: auto;
+  margin-left: 160px;
+  width: 70%;
 }
 
 .chatbox{
@@ -77,23 +78,33 @@ a {
 }
 
 #snd-btn{
-  background-color: #4CAF50;
-  border: none;
+  background-color: #ff471d;
+  border: 2px solid #ff471d;
+  border-radius: 5px;
   color: white;
   margin: 10px;
-  padding: 15px 32px;
+  padding: 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 15px;
 }
 
+/* background-color: #ff471d;
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        width: 100%;
+        color: white;
+        font-size: 15px; */
+
 input[type=text] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  border: 2px solid white;
+  border-radius: 5px;
+  width: 700px;
+  margin-bottom: 10px;
+  padding: 5px;
+  font-size: 15px;
 }
 
 #logo_text{
@@ -154,11 +165,11 @@ h2{
   color: white;
   font-family: 'Roboto', sans-serif;
   margin: 0 auto;
-  margin-left: 50px;
+  
 }
 
 #useronline{
-
+text-align: left;
   align-content: left;
 }
 #person{
@@ -166,4 +177,40 @@ color:green;
 font-size: small;
 }
 
+#profil_pic{
+  text-align: center;
+  margin: 0 auto;
+  width: 160px;
+}
+
+.chatbox_output{
+  display: flex;
+  overflow:auto;
+  background: rgb(110, 110, 110);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: large;
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+p#style{
+  
+}
+
+
+#profileDiv {
+  text-align: center;
+}
+
+#imageContainer {
+  text-align: center;
+}
+
+#imageContainer img {
+  width: 80px;
+}
 

@@ -5,7 +5,7 @@ const messageInput = document.getElementById('msg-inp');
 const roomCont = document.getElementById('room-cont');
 const loginCont = document.getElementById('formLogin');
 
-if (msgForm != null) {
+/*if (msgForm != null) {
     // Prompts user for name (will be replaced by login screen)
     const name = prompt('What is your name?');
     appendMessage(`${name} joined`);
@@ -20,9 +20,9 @@ if (msgForm != null) {
         socket.emit('send-chat-message', roomName, message);
         messageInput.value = '';
     })
-}
+}*/
 
-socket.on('room-created', room => {
+/*socket.on('room-created', room => {
     console.log("THISROOM", room);
     const roomElement = document.createElement('div');
     roomElement.innerText = room;
@@ -31,17 +31,21 @@ socket.on('room-created', room => {
     roomLink.innerText = 'join';
     roomCont.append(roomElement);
     roomCont.append(roomLink);
-})
+})*/
 
 let userId = document.cookie.replace('user=', '');
+//let userId = document.cookie.match('(^|;) ?user=([^;]*)(;|$)')[2];
+console.log("userId", userId);
 let name;
+console.log('USERID: ' + userId);
 //hämtar användarnamnet från databasen sparat som en coockie för att få ut "rätt" namn från DB
-/*fetch('chat/user/' + userId).then(res => res.json()).then(user => {
-    console.log(user);
+fetch('chat/user/' + userId).then(res => res.json()).then(user => {
+    // console.log(user);
     name = user.username;
+    console.log('användarnamn: ' + name);
     appendMessage(name + " " + ' has joined the chat!');
     socket.emit('new-user', name);
-})*/
+})
 
 // Adds message written onto html page in the specified container
 socket.on('chat-message', data => {
@@ -58,14 +62,14 @@ socket.on('user-disconnected', name => {
     appendMessage(`${name} disconnected from the chat!`);
 })
 
-/*document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#snd-btn').addEventListener('click', e => {
-        e.preventDefault();
-        console.log("FOCUSONTHIS", rooms);
-        socket.emit('send-chat-message', (roomName, document.querySelector('#msg-inp').value));
+        e.preventDefault(); 
+        socket.emit('send-chat-message', document.querySelector('#msg-inp').value);
         appendMessage(document.querySelector('#msg-inp').value);
     })
-})*/
+   
+})
 
 function appendMessage(message) {
     const msgElement = document.createElement('p');
