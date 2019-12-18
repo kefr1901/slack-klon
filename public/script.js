@@ -5,7 +5,7 @@ const messageInput = document.getElementById('msg-inp');
 const roomCont = document.getElementById('room-cont');
 const loginCont = document.getElementById('formLogin');
 
-/*if (msgForm != null) {
+if (msgForm != null) {
     // Prompts user for name (will be replaced by login screen)
     const name = prompt('What is your name?');
     appendMessage(`${name} joined`);
@@ -20,7 +20,7 @@ const loginCont = document.getElementById('formLogin');
         socket.emit('send-chat-message', roomName, message);
         messageInput.value = '';
     })
-}*/
+}
 
 socket.on('room-created', room => {
     console.log("THISROOM", room);
@@ -36,12 +36,12 @@ socket.on('room-created', room => {
 let userId = document.cookie.replace('user=', '');
 let name;
 //hämtar användarnamnet från databasen sparat som en coockie för att få ut "rätt" namn från DB
-fetch('chat/user/' + userId).then(res => res.json()).then(user => {
+/*fetch('chat/user/' + userId).then(res => res.json()).then(user => {
     console.log(user);
     name = user.username;
     appendMessage(name + " " + ' has joined the chat!');
     socket.emit('new-user', name);
-})
+})*/
 
 // Adds message written onto html page in the specified container
 socket.on('chat-message', data => {
@@ -58,14 +58,14 @@ socket.on('user-disconnected', name => {
     appendMessage(`${name} disconnected from the chat!`);
 })
 
-document.addEventListener('DOMContentLoaded', () => {
+/*document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#snd-btn').addEventListener('click', e => {
         e.preventDefault();
         console.log("FOCUSONTHIS", rooms);
         socket.emit('send-chat-message', (roomName, document.querySelector('#msg-inp').value));
         appendMessage(document.querySelector('#msg-inp').value);
     })
-})
+})*/
 
 function appendMessage(message) {
     const msgElement = document.createElement('p');

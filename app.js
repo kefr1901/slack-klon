@@ -30,7 +30,6 @@ var chatRouter = require("./routes/chat");
 var loginRouter = require("./routes/login");
 var uploadRouter = require("./routes/upload");
 var registerRouter = require("./routes/register");
-var roomRouter = require("./routes/newroom");
 
 
 // Object with the names of users
@@ -52,11 +51,9 @@ let collection = db.get("roomcollection");
 // När en användare connectar till chatten
 io.on('connection', socket => {
   socket.on('new-user', (room, name) => {
-    console.log("THIS", name, room);
     socket.join(room);
     rooms[room].users[socket.id] = name;
     socket.to(room).broadcast.emit('user-connected', name);
-    console.log(rooms);
   })
 
   // När en anvädare skriver
@@ -109,15 +106,13 @@ app.use('/chat', chatRouter);
 app.use('/login', loginRouter);
 app.use('/upload', uploadRouter);
 app.use('/register', registerRouter);
-app.use('/newroom', roomRouter);
 
-app.post('/newroom', (req, res) => {
+app.post('/room', (req, res) => {
   if (rooms[req.body.room] != null) {
     return res.redirect('/');
   }
   rooms[req.body.room] = { users: {} }
   res.redirect(req.body.room)
-  
 
 
 })
@@ -134,12 +129,11 @@ app.get('/:room', (req, res) => {
   collection.find({}, {}, function (e, data) {
 
   var roomName = req.params.room;
-
+console.log(roomName);
   collection.insert({
     "roomname": roomName
   })
   io.emit('room-created', req.params.room);
-  console.log();req.params
     res.render('room', { rooms: dbroom, roomName: req.params.room, data: data })
   })
 })

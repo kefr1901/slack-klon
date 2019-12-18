@@ -25,8 +25,15 @@
         <input name="room" type="text" required>
         <button type="submit">Lägg till rum!</button>
     </form>
+    <ul>
+                
+        <% for(let i=0; i < rooms.length; i++){ %>
+        <li> <a href="/<%= rooms[i].roomname %>"><%= rooms[i].roomname %></li></a>
+        <% } %>
+    </ul>
         <a href="#">#Channel</a>
         <a href="#">#Skitsnack</a>
+        <div id="room-cont"></div>
         <hr>
         <br>
         <!-- Side navigation-->
