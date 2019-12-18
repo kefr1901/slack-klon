@@ -2,9 +2,11 @@ const socket = io();
 const msgContainer = document.getElementById('msg-cont');
 const msgForm = document.getElementById('snd-cont');
 const messageInput = document.getElementById('msg-inp');
-
+//let element = document.getElementById("msg-cont");
 
 let userId = document.cookie.replace('user=', '');
+//let userId = document.cookie.match('(^|;) ?user=([^;]*)(;|$)')[2];
+console.log("userId", userId);
 let name;
 //hämtar användarnamnet från databasen sparat som en coockie för att få ut "rätt" namn från DB
 fetch('chat/user/' + userId).then(res => res.json()).then(user => {
@@ -31,7 +33,7 @@ socket.on('user-disconnected', name => {
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#snd-btn').addEventListener('click', e => {
-        e.preventDefault();
+        e.preventDefault(); 
         socket.emit('send-chat-message', document.querySelector('#msg-inp').value);
         appendMessage(document.querySelector('#msg-inp').value);
     })

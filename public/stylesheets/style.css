@@ -23,6 +23,7 @@ a {
   background-color: rgb(76, 12, 78); 
   overflow-x: hidden; 
   padding-top: 20px;
+  text-align: center;
 }
 
 
@@ -154,16 +155,40 @@ h2{
   color: white;
   font-family: 'Roboto', sans-serif;
   margin: 0 auto;
-  margin-left: 50px;
+  
 }
 
 #useronline{
-
+text-align: left;
   align-content: left;
 }
 #person{
 color:green;
 font-size: small;
+}
+
+#profil_pic{
+  text-align: center;
+  margin: 0 auto;
+  width: 160px;
+}
+
+.chatbox_output{
+  display: flex;
+  overflow:auto;
+  background: rgb(110, 110, 110);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: large;
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+p#style{
+  
 }
 
 

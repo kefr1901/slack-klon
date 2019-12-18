@@ -4,11 +4,22 @@ let multer = require("multer");
 const ejs = require('ejs');
 const path = require('path');
 
+
+router.get('/user/:id', (req, res) => {
+    let db = req.db;
+    let collection = db.get('usercollection');
+    collection.findOne({_id: req.params.id}, (e, user) => {
+      if (e) throw e;
+      console.log(user);
+      
+    })
+  })
+
 //set storage engine with multer
 const storage = multer.diskStorage({
     destination: './public/uploads/',
     filename: function(req, file, cb){
-        cb(null, file.fieldname + '-' + Date.now() + //here we say that the name of the file should be the fieldname(myImage)add timestamp and the the path on the file name
+        cb(null, + //here we say that the name of the file should be the fieldname(myImage)add timestamp and the the path on the file name
         path.extname(file.originalname)) //add format name on the file name
     }
 });

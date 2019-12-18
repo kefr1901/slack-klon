@@ -46,8 +46,8 @@ io.on('connection', socket => {
   // När en anvädare skriver
   socket.on('send-chat-message', message => {
     let messageForDb = { //skapar ett objekt av meddelandet och vem som är användare
-      message: message,  //meddelande från personen
-      name: users[socket.id] //personID på personen
+      name: users[socket.id], //personID på personen
+      message: message  //meddelande från personen
     }
       
     var collection = db.get('messagecollection');//skapar collection messagecollection
