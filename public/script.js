@@ -6,10 +6,12 @@ const messageInput = document.getElementById('msg-inp');
 
 let userId = document.cookie.replace('user=', '');
 let name;
+console.log('USERID: ' + userId);
 //hämtar användarnamnet från databasen sparat som en coockie för att få ut "rätt" namn från DB
 fetch('chat/user/' + userId).then(res => res.json()).then(user => {
-    console.log(user);
+    // console.log(user);
     name = user.username;
+    console.log('användarnamn: ' + name);
     appendMessage(name + " " + ' has joined the chat!');
     socket.emit('new-user', name);
 })
@@ -35,6 +37,15 @@ document.addEventListener('DOMContentLoaded', () => {
         socket.emit('send-chat-message', document.querySelector('#msg-inp').value);
         appendMessage(document.querySelector('#msg-inp').value);
     })
+    // const path_png = '/uploads/' + userId + '.png';
+    // const path_jpg = '/uploads/' + userId + '.jpg';
+    // const profileDiv = document.getElementById("profileDiv");
+
+    // const img = document.createElement("img");
+
+    // img.setAttribute('src', path_png);
+
+    // profileDiv.appendChild(img);
 })
 
 function appendMessage(message) {

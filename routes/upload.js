@@ -4,11 +4,12 @@ let multer = require("multer");
 const ejs = require('ejs');
 const path = require('path');
 
+
 //set storage engine with multer
 const storage = multer.diskStorage({
     destination: './public/uploads/',
     filename: function(req, file, cb){
-        cb(null, file.fieldname + '-' + Date.now() + //here we say that the name of the file should be the fieldname(myImage)add timestamp and the the path on the file name
+        cb(null, file.fieldname + '-' + Date.now() +//here we say that the name of the file should be the fieldname(myImage)add timestamp and the the path on the file name
         path.extname(file.originalname)) //add format name on the file name
     }
 });
@@ -39,23 +40,24 @@ const upload = multer({
 router.post('/', (req, res) => {
     upload(req, res, (err) => {
         if(err) {
-            res.render('index', { //if error then rerender the page and send in the error into the variable msg that consist on the .ejs-file
+            res.render('chat', { //if error then rerender the page and send in the error into the variable msg that consist on the .ejs-file
                 msg: err
             });
         } else {
             if (req.file == undefined) {
-                res.render('index', {
+                res.render('chat', {
                     msg: 'Error: No file selected'
                 });
             } else {
-                res.render('index', {
-                    msg: 'File uploaded',
-                    file: `uploads/${req.file.filename}`
-                });
+                res.sendFile(`uploads/${req.file.filename}`);
+                // res.render('chat', { //här har jag ändrat lite lallal kul!
+                //     // msg: 'File uploaded',
+                //     file: `uploads/${req.file.filename}`
+                // });
+                res.render('chat');
             }
         }
     });
-
 });
 
 module.exports = router;

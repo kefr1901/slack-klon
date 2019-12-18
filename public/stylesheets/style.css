@@ -56,16 +56,16 @@ a {
 }
 
 #side_logo{
-  height: 70px;
-  width: 70px;
+  /* height: 70px; */
+  width: 100px;
   display: flex;
   margin: 0 auto;
 
 }
 
 #msg-inp, #nameinput{
-  margin-left: 600px;
-  width: auto;
+  margin-left: 160px;
+  width: 70%;
 }
 
 .chatbox{
@@ -77,23 +77,33 @@ a {
 }
 
 #snd-btn{
-  background-color: #4CAF50;
-  border: none;
+  background-color: #ff471d;
+  border: 2px solid #ff471d;
+  border-radius: 5px;
   color: white;
   margin: 10px;
-  padding: 15px 32px;
+  padding: 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 15px;
 }
 
+/* background-color: #ff471d;
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        width: 100%;
+        color: white;
+        font-size: 15px; */
+
 input[type=text] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  border: 2px solid white;
+  border-radius: 5px;
+  width: 700px;
+  margin-bottom: 10px;
+  padding: 5px;
+  font-size: 15px;
 }
 
 #logo_text{
@@ -166,4 +176,12 @@ color:green;
 font-size: small;
 }
 
+
+#profileDiv {
+  text-align: center;
+}
+
+#profileDiv img {
+  width: 50px;
+}
 

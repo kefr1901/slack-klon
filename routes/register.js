@@ -3,6 +3,8 @@ var router = express.Router();
 
 router.post('/', function (req, res) {
 
+    //Här vill vi inkludera uppladdning av bilden!
+
     // Set our internal DB variable
     var db = req.db;
 
@@ -25,27 +27,9 @@ router.post('/', function (req, res) {
         else {
             // And forward to success page
             req.session.user = { _id: doc._id };
-            res.redirect("/chat");
-            
+            res.redirect("/chat"); 
         }
     });
-
 });
-
-// router.get('/chat', function (req, res) {
-//     res.render('chat')
-// });
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = router;
