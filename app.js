@@ -20,7 +20,7 @@ app.use(function (req, res, next) {
 
 app.use(cookieSession({
   name: 'session',
-  keys: ['key1', 'key2']
+  keys: ['key1', 'key2', 'key3']
 }))
 
 //var indexRouter = require('./routes/chat');
@@ -30,6 +30,8 @@ var chatRouter = require("./routes/chat");
 var loginRouter = require("./routes/login");
 var uploadRouter = require("./routes/upload");
 var registerRouter = require("./routes/register");
+var roomRouter = require("./routes/room");
+
 
 
 // Object with the names of users
@@ -81,6 +83,7 @@ app.use('/chat', chatRouter);
 app.use("/login", loginRouter);
 app.use("/upload", uploadRouter);
 app.use("/register", registerRouter);
+app.use("/room", roomRouter)
 
 
 
