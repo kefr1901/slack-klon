@@ -1,26 +1,73 @@
-@import url('https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
 
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: gray;
+  font-family: 'Open Sans', sans-serif;
+  background-image: url('../../images/background.jpg');
+
 }
 
 a {
   color: #00B7FF;
 }
 
+header {
+  text-align: center;
+}
+
+.logo {
+  width: 150px;
+  margin-bottom: 30px;
+}
+
+.register {
+  margin-bottom: 0;
+}
+
+#logo img {
+  text-align: center;
+}
+
+.formContainer {
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.formContainer:last-child {
+  margin-bottom: 0;
+}
+
+.forms {
+  background: #00254f;
+  width:500px;
+  padding: 10px;
+  margin: 0 auto;
+  border-radius: 5px;
+  margin-top: 10px;
+  color: white;
+}
+
+.formH3 {
+  margin-bottom: 10px;
+}
+
+.uploadH3 {
+  color: white;
+}
+
+#upload_input {
+  background: green;
+}
 
 .sidenav {
-  height: 100%; 
-  width: 200px; 
-  position: fixed; 
-  z-index: 1; 
-  top: 0;
-  left: 0;
-  background-color: rgb(76, 12, 78); 
+  height: 100vh;
+  width: 20%; 
+  float: left;
+  background-color: #00254f; 
   overflow-x: hidden; 
   padding-top: 20px;
   text-align: center;
@@ -40,33 +87,30 @@ a {
   color: #f1f1f1;
 }
 
-.main {
-  margin-left: 160px; 
-  padding: 0px 10px;
-  background-color: white;
-  height: 70vh;
-  display: grid;
-  box-sizing: border-box;
+#chat_container {
+  margin: 1.5%;
+  float: right;
+  height: 80vh;
+  width: 77%;
   overflow: auto;
 }
 
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+.main {
+  background-color: white;
+  margin-bottom: 10px;
+  overflow: auto;
+  height: 70vh;
+  border-radius: 5px;
+  padding: 10px;
+  
 }
 
-#side_logo{
-  /* height: 70px; */
-  width: 100px;
-  display: flex;
-  margin: 0 auto;
-
+#msg-input {
+  margin-top: 10px;
 }
 
-#msg-inp, #nameinput{
-  margin-left: 160px;
-  width: 70%;
+#msg-inp  {
+  width: 100%;
 }
 
 .chatbox{
@@ -77,31 +121,32 @@ a {
 
 }
 
-#snd-btn{
+#add_room_btn {
+  border: 2px solid white;
+  width: 50%;
+  background: none;
+}
+
+#upload_btn {
+  border: 2px solid white;
+  width: 50%;
+  background: none;
+}
+
+button {
   background-color: #ff471d;
-  border: 2px solid #ff471d;
+  border: none;
   border-radius: 5px;
-  color: white;
-  margin: 10px;
   padding: 5px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  width: 100%;
+  color: white;
   font-size: 15px;
 }
 
-/* background-color: #ff471d;
-        border: none;
-        border-radius: 5px;
-        padding: 5px;
-        width: 100%;
-        color: white;
-        font-size: 15px; */
-
-input[type=text] {
+input[type=text],[type=password] {
   border: 2px solid white;
   border-radius: 5px;
-  width: 700px;
+  width: 100%;
   margin-bottom: 10px;
   padding: 5px;
   font-size: 15px;
@@ -137,24 +182,8 @@ p:nth-child(even) {
   font-family: 'Roboto', sans-serif;
 }
 
-#add_room_btn{
-  margin-left: 40px;
-  background-color:blue;
-  border: none;
-  color: white;
-  margin: 10px;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 20px;
-  font-family: 'Roboto', sans-serif;
-}
-
 li{
   list-style: none;
-  margin: 0 ;
 }
 
 ul{
@@ -169,12 +198,12 @@ h2{
 }
 
 #useronline{
-text-align: left;
-  align-content: left;
+  text-align: center;
 }
+
 #person{
 color:green;
-font-size: small;
+font-size: large;
 }
 
 #profil_pic{
@@ -197,11 +226,6 @@ font-size: small;
   font-family: 'Roboto', sans-serif;
 }
 
-p#style{
-  
-}
-
-
 #profileDiv {
   text-align: center;
 }
@@ -213,4 +237,3 @@ p#style{
 #imageContainer img {
   width: 80px;
 }
-
