@@ -3,24 +3,12 @@ var router = express.Router();
 let multer = require("multer");
 const ejs = require('ejs');
 const path = require('path');
-
-//????? kanske inte används
-router.get('/user/:id', (req, res) => {
-    let db = req.db;
-    let collection = db.get('usercollection');
-    collection.findOne({_id: req.params.id}, (e, user) => {
-      if (e) throw e;
-      console.log(user);
-      
-    })
-  })
-
 //set storage engine with multer
 const storage = multer.diskStorage({
     destination: './public/uploads/',
-    filename: function(req, file, cb){
-        cb(null, + //here we say that the name of the file should be the fieldname(myImage)add timestamp and the the path on the file name
-        path.extname(file.originalname)) //add format name on the file name
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() +//here we say that the name of the file should be the fieldname(myImage)add timestamp and the the path on the file name
+            path.extname(file.originalname)) //add format name on the file name
     }
 });
 
@@ -48,10 +36,10 @@ const upload = multer({
 
 //when submitting an image
 router.post('/', (req, res) => {
-    console.log(req.files);
-
+    
     upload(req, res, (err) => {
         if (err) {
+            console.log("HAHAHAHHA");
             res.render('chat', { //if error then rerender the page and send in the error into the variable msg that consist on the .ejs-file
                 msg: err
             });
@@ -61,31 +49,31 @@ router.post('/', (req, res) => {
                     msg: 'Error: No file selected'
                 });
             } else {
+                //detta definierar data återigen. de fyra raderna nedan
                 let db = req.db;
                 let collection = db.get("usercollection");
-                collection.find({}, {}, function (e, data) {
-                    console.log('daataaa:' + data)
-                    if (e) {
-                        throw e;
-                    } else {
-                        //HÄR HADE MAN KUNNAT ATT KANSKE SATT EN SÖKVÄG TILL BILDEN TILL ANVÄNDAREN
-                        res.cookie('user', req.session.user._id, { maxAge: 3600, httpOnly: false });
-                        console.log('uid: ' + req.session.user._id);
-                        //res.render("chat", { data: data })
-
-                        // res.sendFile(`uploads/${req.file.filename}`);
-                        res.render('chat', { //här har jag ändrat lite lallal kul!
-                        // msg: 'File uploaded',
-                            file: `uploads/${req.file.filename}`,
-                            data: data
-                        });
-                    };
-                    
-                    // res.render('chat');
+                let messagecollection = db.get("messagecollection");
+                messagecollection.find({}, {}, function (e, message) {
+                    collection.find({}, {}, function (e, data){
+                        if (e) {
+                            throw e;
+                        } else {
+                            //HÄR HADE MAN KUNNAT ATT KANSKE SATT EN SÖKVÄG TILL BILDEN TILL ANVÄNDAREN
+                            res.cookie('user', req.session.user._id, { maxAge: 3600, httpOnly: false });
+                            console.log('uid: ' + req.session.user._id);
+                            //res.render("chat", { data: data })
+                            // res.sendFile(`uploads/${req.file.filename}`);
+                            res.render('chat', { //här har jag ändrat lite lallal kul!
+                            // msg: 'File uploaded',
+                                file: `uploads/${req.file.filename}`,
+                                message: message,
+                                data: data
+                            });
+                        };
+                    });
                 });
             }
         }
     });
 });
-
 module.exports = router;

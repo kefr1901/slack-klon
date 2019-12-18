@@ -14,8 +14,8 @@ router.get('/user/:id', (req, res) => {
 
 //render CHAT
 router.get('/', function (req, res) {
-  let data;
-  let message;
+  //let data;
+  //let message;
   let db = req.db;
   let collection = db.get("usercollection");
   let messagecollection = db.get("messagecollection");

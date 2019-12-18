@@ -39,15 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         socket.emit('send-chat-message', document.querySelector('#msg-inp').value);
         appendMessage(document.querySelector('#msg-inp').value);
     })
-    // const path_png = '/uploads/' + userId + '.png';
-    // const path_jpg = '/uploads/' + userId + '.jpg';
-    // const profileDiv = document.getElementById("profileDiv");
-
-    // const img = document.createElement("img");
-
-    // img.setAttribute('src', path_png);
-
-    // profileDiv.appendChild(img);
+   
 })
 
 function appendMessage(message) {
