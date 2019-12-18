@@ -26,8 +26,9 @@
     <br>
     <!-- Side navigation-->
     
+    <!-- Image uploadpart -->
     <div class="formContainer">
-      <!-- <%= typeof msg != 'undefined' ? msg : '' %> -->
+      <%= typeof msg != 'undefined' ? msg : '' %>
       <h3 class="formH3">Upload an image</h3>
       <form id="formUpload" action="/upload" method="POST" enctype="multipart/form-data">
           <input type="file" name="myImage">
@@ -36,8 +37,9 @@
               <img src="<%= typeof file != 'undefined' ? file : '' %>" alt="profilepic" onerror="this.style.display = 'none'">
           </div>
       </form>
-      
-    </div>
+    </div><BR>
+    <!-- Image uploadpart ENDS here -->
+
     <div id="profileDiv"></div>
     <h2>USERS</h2>
     <div id="useronline">

@@ -181,7 +181,11 @@ font-size: small;
   text-align: center;
 }
 
-#profileDiv img {
-  width: 50px;
+#imageContainer {
+  text-align: center;
+}
+
+#imageContainer img {
+  width: 80px;
 }
 
