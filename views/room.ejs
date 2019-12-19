@@ -18,7 +18,10 @@
     <img id="side_logo" src="images/logo4.png">
     <!-- <h2 id="logo_text">SNACK</h2> -->
     <br>
-    <button id="add_room_btn">Lägg till rum!</button>
+    <form action="/room" method="POST">
+        <input id="name" name="room" type="text">
+        <button type="submit" id="add_room_btn">Lägg till rum!</button>
+      </form>
     <a href="#" ># Main Channel</a>
   
     <hr>
@@ -43,8 +46,8 @@
     <h2>USERS</h2>
     <div id="useronline">
       
-        <% for(let i=0; i < data.length; i++){ %>
-        <a><li> <i id="person" class="fas fa-user"> </i> <%= data[i].username %> </li></a>
+        <% for(let i=0; i < rooms.length; i++){ %>
+        <a><li> <i id="person" class="fas fa-user"> </i> <%= rooms[i].roomname %> </li></a>
        <% } %>
       
     </div>

@@ -42,8 +42,8 @@ router.get('/', function (req, res) {
 
 
 
-/*
-/* POST to Add User Service 
+
+// POST to Add User Service 
 router.post('/', function (req, res) {
 
   // Set our internal DB variable
@@ -72,5 +72,5 @@ router.post('/', function (req, res) {
     }
   });
 });
-*/
+
 module.exports = router;
