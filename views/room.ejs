@@ -2,62 +2,68 @@
 <html>
 
 <head>
-  <title> </title>
+    <title> </title>
 
-  <link rel='stylesheet' href='/stylesheets/style.css' />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-  <script defer src="script.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script defer src="script.js"></script>
+    <script>
+        const roomName = "<%=  %>"
+    </script>
 </head>
 
 <body>
-  <!-- Head navigation -->
+    <!-- Head navigation -->
 
 
-  <div class="sidenav">
+    <div class="sidenav">
 
-    <img id="side_logo" src="images/logo4.png">
-    <!-- <h2 id="logo_text">SNACK</h2> -->
-    <br>
-    <form action="/room" method="POST">
-        <input id="name" name="room" type="text">
-        <button type="submit" id="add_room_btn">Lägg till rum!</button>
-      </form>
-    <a href="#" ># Main Channel</a>
-  
-    <hr>
-    <br>
-    <!-- Side navigation-->
-    
-    <!-- Image uploadpart -->
-    <div class="formContainer">
-      <%= typeof msg != 'undefined' ? msg : '' %>
-      <h3 class="formH3">Upload an image</h3>
-      <form id="formUpload" action="/upload" method="POST" enctype="multipart/form-data">
-          <input type="file" name="myImage">
-          <button type="submit">Upload</button>
-          <div id="imageContainer">
-              <img src="<%= typeof file != 'undefined' ? file : '' %>" alt="profilepic" onerror="this.style.display = 'none'">
-          </div>
-      </form>
-    </div><BR>
-    <!-- Image uploadpart ENDS here -->
+        <img id="side_logo" src="images/logo4.png">
+        <!-- <h2 id="logo_text">SNACK</h2> -->
+        <br>
+        <form action="/room" method="POST">
+            <input id="name" name="room" type="text" value="hello">
+            <button type="submit" id="add_room_btn">Lägg till rum!</button>
+        </form>
+        <a href="#"># Main Channel</a>
 
-    
-    <h2>USERS</h2>
-    <div id="useronline">
-      
-        <% for(let i=0; i < rooms.length; i++){ %>
-        <a><li> <i id="person" class="fas fa-user"> </i> <%= rooms[i].roomname %> </li></a>
-       <% } %>
-      
+        <hr>
+        <br>
+        <!-- Side navigation-->
+
+        <!-- Image uploadpart -->
+        <div class="formContainer">
+            <%= typeof msg != 'undefined' ? msg : '' %>
+            <h3 class="formH3">Upload an image</h3>
+            <form id="formUpload" action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="myImage">
+                <button type="submit">Upload</button>
+                <div id="imageContainer">
+                    <img src="<%= typeof file != 'undefined' ? file : '' %>" alt="profilepic"
+                        onerror="this.style.display = 'none'">
+                </div>
+            </form>
+        </div><BR>
+        <!-- Image uploadpart ENDS here -->
+
+
+        <h2>USERS</h2>
+        <div id="useronline">
+
+            <% for(let i=0; i < rooms.length; i++){ %>
+            <a>
+                <li> <i id="person" class="fas fa-user"> </i> <%= rooms[i].roomname %> </li>
+            </a>
+            <% } %>
+
+        </div>
     </div>
-  </div>
 
-  <!-- Main -->
-<div class="main">
-    <div id="chatbox" >
-        <div id="msg-cont">
-          <!--   <% for(let i=0; i < message.length; i++){ %>
+    <!-- Main -->
+    <div class="main">
+        <div id="chatbox">
+            <div id="msg-cont">
+                <!--   <% for(let i=0; i < message.length; i++){ %>
               <div class="chatbox_output">
                 <%= message[i].name %>     
                    <%= "earlier said:" %>
@@ -67,18 +73,20 @@
               
               <% } %>-->
 
-        </div>
-        
-        
-    </div>
-</div>
-<form method="POST" id="snd-cont" name="" action="/chat"> 
+            </div>
 
-    <input id="msg-inp" type="text" name="msg-inp" placeholder="Skriv ditt meddelande.."></input><button id="snd-btn" type="submit">Skicka</button>
-  
-</form>
+
+        </div>
+    </div>
+    <form method="POST" id="snd-cont" name="" action="/chat">
+
+        <input id="msg-inp" type="text" name="msg-inp" placeholder="Skriv ditt meddelande.."></input><button
+            id="snd-btn" type="submit">Skicka</button>
+
+    </form>
 
 </body>
+
 </html>
 <!-- <!DOCTYPE html>
 <html>

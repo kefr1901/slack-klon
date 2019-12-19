@@ -33,6 +33,7 @@ const loginCont = document.getElementById('formLogin');
     roomCont.append(roomLink);
 })*/
 
+    
 
 let userId = document.cookie.replace('user=', '');
 //let userId = document.cookie.match('(^|;) ?user=([^;]*)(;|$)')[2];
@@ -46,7 +47,6 @@ fetch('chat/user/' + userId).then(res => res.json()).then(user => {
     socket.emit('new-user', name);
 })
 
-console.log();
 
 // Adds message written onto html page in the specified container
 socket.on('chat-message', data => {
