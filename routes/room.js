@@ -13,7 +13,7 @@ router.get('/user/:id', (req, res) => {
 })
 
 //render ROOM
-router.get('/room', function (req, res) {
+router.get('/', function (req, res) {
     console.log("ETT POST REQ SKER");
   //let data;
   //let message;
@@ -39,7 +39,7 @@ router.get('/room', function (req, res) {
   messagecollection.find({}, {}, function (e, message) {
     message = message;
     //console.log( message);
-    res.render("room", { data: user, message: message, rooms: rooms });
+    res.render("room", { message: message });
   });
   })
 });

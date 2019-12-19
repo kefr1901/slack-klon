@@ -35,17 +35,15 @@ const loginCont = document.getElementById('formLogin');
 
 let userId = document.cookie.replace('user=', '');
 //let userId = document.cookie.match('(^|;) ?user=([^;]*)(;|$)')[2];
-console.log("userId", userId);
 let name;
-console.log('USERID: ' + userId);
 //hämtar användarnamnet från databasen sparat som en coockie för att få ut "rätt" namn från DB
-fetch('chat/user/' + userId).then(res => res.json()).then(user => {
+/*fetch('chat/user/' + userId).then(res => res.json()).then(user => {
     // console.log(user);
     name = user.username;
     console.log('användarnamn: ' + name);
     appendMessage(name + " " + ' has joined the chat!');
     socket.emit('new-user', name);
-})
+})*/
 
 // Adds message written onto html page in the specified container
 socket.on('chat-message', data => {

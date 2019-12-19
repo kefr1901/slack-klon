@@ -35,7 +35,7 @@ var roomRouter = require("./routes/room");
 
 
 // Object with the names of users
-const rooms = {};
+const users = {};
 
 let maincollection = db.get("mainservercollection");
 
@@ -45,52 +45,50 @@ let collection = db.get("roomcollection");
 
   collection.find({}, function (e, data) {
     for(i = 0; i < data.length; i++){
-      if(data[i].username != rooms[data[i].username])
-      rooms[data[i].username] = {users: {}}
+      if(data[i].username != users[data[i].username])
+      users[data[i].username] = {users: {}}
   }
   })
 
 // När en användare connectar till chatten
 io.on('connection', socket => {
-  socket.on('new-user', (room, name) => {
-    socket.join(room);
-    rooms[room].users[socket.id] = name;
-    socket.to(room).broadcast.emit('user-connected', name);
+  socket.on('new-user', (name) => {
+    socket.join(name);
+    users[socket.id] = name;
+    socket.broadcast.emit('user-connected', name);
   })
 
   // När en anvädare skriver
-  socket.on('send-chat-message', (room, message) => {
+  socket.on('send-chat-message', (message) => {
     let messageForDb = { //skapar ett objekt av meddelandet och vem som är användare
       message: message, name:  //meddelande från personen
-        rooms[room].users[socket.id] //personID på personen
+        users[socket.id] //personID på personen
         
     }
     var collection = db.get('messagecollection');//skapar collection messagecollection
     collection.insert(messageForDb); // Skickar objektet till databasen
 
-    socket.to(room).broadcast.emit('chat-message', {  //skriver ut till klienten
+    socket.broadcast.emit('chat-message', {  //skriver ut till klienten
       message: message, name:
-        rooms[room].users[socket.id]
+        users[socket.id]
 
     })
   })
 
   // When a user disconnects from chat
   socket.on('disconnect', () => {
-    getUserRooms(socket).forEach(room => {
-      socket.to(room).broadcast.emit('user-disconnected', rooms[room].users[socket.id])
-      delete rooms[room].users[socket.id]
+      socket.broadcast.emit('user-disconnected', users[socket.id])
+      delete users[socket.id]
 
     });
-  })
 })
 
-function getUserRooms(socket) {
+/*function getUserRooms(socket) {
   return Object.entries(rooms).reduce((names, [name, room]) => {
     if (room.users[socket.id] != null) names.push(name);
     return names;
   }, [])
-}
+}*/
 
 
 // view engine setup
