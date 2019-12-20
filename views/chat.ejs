@@ -14,10 +14,19 @@
     <img class="logo" src="images/logo4.png">
     <!-- <h2 id="logo_text">SNACK</h2> -->
     <br>
-    <button id="add_room_btn">Lägg till rum!</button>
-    <a href="#"># Main Channel</a>
-
-    <br>
+    <form action="/room" method="POST">
+      <input id="name" name="room" type="text">
+      <button type="submit" id="add_room_btn">Lägg till rum!</button>
+    </form>
+    
+    <a href="/chat" ># Main Channel</a>
+    <form action="/room" method="POST">
+      <% for(let i=0; i < rooms.length; i++){ %>
+      <a>
+          <li> <a href="/<%= rooms[i].roomname %>"><i id="person" class="fas fa-user"> </i> <%= rooms[i].roomname %> </li></a>
+      </a>
+      <% } %>
+  </form>
     <hr>
     <br>
 

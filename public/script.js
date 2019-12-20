@@ -2,19 +2,40 @@ const socket = io();
 const msgContainer = document.getElementById('msg-cont');
 const msgForm = document.getElementById('snd-cont');
 const messageInput = document.getElementById('msg-inp');
+const roomCont = document.getElementById('room-cont');
+const loginCont = document.getElementById('formLogin');
+
+
+/*socket.on('room-created', room => {
+    console.log("THISROOM", room);
+    const roomElement = document.createElement('div');
+    roomElement.innerText = room;
+    const roomLink = document.createElement('a');
+    roomLink.href = `/${room}`;
+    roomLink.innerText = 'join';
+    roomCont.append(roomElement);
+    roomCont.append(roomLink);
+})*/
+
+msgForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const message = messageInput.value;
+    appendMessage(`${name}: ${message}`);
+    socket.emit('send-chat-message', roomName, message);
+    messageInput.value = '';
+})
 
 let userId = document.cookie.replace('user=', '');
-//let userId = document.cookie.match('(^|;) ?user=([^;]*)(;|$)')[2];
-// console.log("userId", userId);
 let name;
-//hämtar användarnamnet från databasen sparat som en coockie för att få ut "rätt" namn från DB
+//hämtar användarnamnet från databasen sparat som en cookie för att få ut "rätt" namn från DB
 fetch('chat/user/' + userId).then(res => res.json()).then(user => {
-    // console.log(user);
+    room = roomName;
+    console.log(room);
     name = user.username;
-    // console.log('användarnamn: ' + name);
     appendMessage(name + " " + ' has joined the chat!');
-    socket.emit('new-user', name);
-});
+    socket.emit('new-room', room, name);
+})
+
 
 // Adds message written onto html page in the specified container
 socket.on('chat-message', data => {
@@ -31,7 +52,7 @@ socket.on('user-disconnected', name => {
     appendMessage(`${name} disconnected from the chat!`);
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+/*document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#snd-btn').addEventListener('click', e => {
         e.preventDefault();
         console.log("scrollToBottom KÖÖÖÖRS");
@@ -46,4 +67,4 @@ function appendMessage(message) {
     const msgElement = document.createElement('p');
     msgElement.innerText = message;
     msgContainer.append(msgElement);
-};
+};*/
