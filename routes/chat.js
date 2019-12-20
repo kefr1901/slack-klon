@@ -18,6 +18,7 @@ router.get('/', function (req, res) {
   let db = req.db;
   let collection = db.get("usercollection");
   let messagecollection = db.get("messagecollection");
+  let roomcollection = db.get("roomcollection");
 
   collection.find({}, {}, function (e, data) {
    user = data;
@@ -29,10 +30,12 @@ router.get('/', function (req, res) {
     res.cookie('user', req.session.user._id, { maxAge: 3600, httpOnly: false });
     //console.log('uid: ' + req.session.user._id);
   });
+  roomcollection.find({}, {}, function (e, rooms) {
   messagecollection.find({}, {}, function (e, message) {
     message = message;
-    res.render("chat", { data: user, message: message });
+    res.render("chat", { data: user, message: message, rooms: rooms });
   });
+})
 });
 
 

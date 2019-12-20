@@ -23,8 +23,14 @@
       <button type="submit" id="add_room_btn">Lägg till rum!</button>
     </form>
     
-    <a href="#" ># Main Channel</a>
-  
+    <a href="/chat" ># Main Channel</a>
+    <form action="/room" method="POST">
+      <% for(let i=0; i < rooms.length; i++){ %>
+      <a>
+          <li> <a href="/<%= rooms[i].roomname %>"><i id="person" class="fas fa-user"> </i> <%= rooms[i].roomname %> </li></a>
+      </a>
+      <% } %>
+  </form>
     <hr>
     <br>
     <!-- Side navigation-->
