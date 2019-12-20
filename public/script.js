@@ -5,22 +5,6 @@ const messageInput = document.getElementById('msg-inp');
 const roomCont = document.getElementById('room-cont');
 const loginCont = document.getElementById('formLogin');
 
-/*if (msgForm != null) {
-    // Prompts user for name (will be replaced by login screen)
-    const name = prompt('What is your name?');
-    appendMessage(`${name} joined`);
-    socket.emit('new-user', roomName, name);
-    console.log(roomName);
-
-    // Listens to submit button and handles data from form
-    msgForm.addEventListener('submit', event => {
-        event.preventDefault();
-        const message = messageInput.value;
-        appendMessage(`You: ${message}`);
-        socket.emit('send-chat-message', roomName, message);
-        messageInput.value = '';
-    })
-}*/
 
 /*socket.on('room-created', room => {
     console.log("THISROOM", room);
@@ -33,18 +17,23 @@ const loginCont = document.getElementById('formLogin');
     roomCont.append(roomLink);
 })*/
 
-    
+msgForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const message = messageInput.value;
+    appendMessage(`${name}: ${message}`);
+    socket.emit('send-chat-message', roomName, message);
+    messageInput.value = '';
+})
 
 let userId = document.cookie.replace('user=', '');
-//let userId = document.cookie.match('(^|;) ?user=([^;]*)(;|$)')[2];
 let name;
-//hämtar användarnamnet från databasen sparat som en coockie för att få ut "rätt" namn från DB
+//hämtar användarnamnet från databasen sparat som en cookie för att få ut "rätt" namn från DB
 fetch('chat/user/' + userId).then(res => res.json()).then(user => {
-    // console.log(user);
+    room = roomName;
+    console.log(room);
     name = user.username;
-    console.log('användarnamn: ' + name);
     appendMessage(name + " " + ' has joined the chat!');
-    socket.emit('new-user', name);
+    socket.emit('new-room', room, name);
 })
 
 
@@ -63,14 +52,15 @@ socket.on('user-disconnected', name => {
     appendMessage(`${name} disconnected from the chat!`);
 })
 
-document.addEventListener('DOMContentLoaded', () => {
+/*document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#snd-btn').addEventListener('click', e => {
         e.preventDefault(); 
-        socket.emit('send-chat-message', document.querySelector('#msg-inp').value);
+        let message = document.querySelector('#msg-inp').value
+        socket.emit('send-chat-message', (room, message))
         appendMessage(document.querySelector('#msg-inp').value);
     })
-   
-})
+    
+})*/
 
 function appendMessage(message) {
     const msgElement = document.createElement('p');

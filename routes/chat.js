@@ -7,7 +7,6 @@ router.get('/user/:id', (req, res) => {
   let collection = db.get('usercollection');
   collection.findOne({ _id: req.params.id }, (e, user) => {
     if (e) throw e;
-    // console.log(user);
     res.send(JSON.stringify(user));
   })
 })
@@ -32,7 +31,6 @@ router.get('/', function (req, res) {
   });
   messagecollection.find({}, {}, function (e, message) {
     message = message;
-    console.log( message);
     res.render("chat", { data: user, message: message });
   });
 });

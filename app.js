@@ -35,60 +35,59 @@ var roomRouter = require("./routes/room");
 
 
 // Object with the names of users
-const users = {};
+const rooms = {};
 
-let maincollection = db.get("mainservercollection");
+let roomcollection = db.get("roomcollection");
 
-
-
-let collection = db.get("roomcollection");
-
-  collection.find({}, function (e, data) {
-    for(i = 0; i < data.length; i++){
-      if(data[i].username != users[data[i].username])
-      users[data[i].username] = {users: {}}
+roomcollection.find({}, function (e, data) {
+  for (i = 0; i < data.length; i++) {
+    if (data[i].roomname != rooms[data[i].roomname])
+      rooms[data[i].roomname] = { users: {} }
   }
-  })
+})
 
 // När en användare connectar till chatten
 io.on('connection', socket => {
-  socket.on('new-user', (name) => {
-    socket.join(name);
-    users[socket.id] = name;
-    socket.broadcast.emit('user-connected', name);
+  socket.on('new-room', (room, name) => {
+    socket.join(room);
+    rooms[room].users[socket.id] = name;
+    socket.to(room).broadcast.emit('user-connected', name);
   })
 
   // När en anvädare skriver
-  socket.on('send-chat-message', (message) => {
+  socket.on('send-chat-message', (room, message) => {
     let messageForDb = { //skapar ett objekt av meddelandet och vem som är användare
       message: message, name:  //meddelande från personen
-        users[socket.id] //personID på personen
-        
+      rooms[room].users[socket.id] //personID på personen
+      
+
     }
+    console.log("HERE", rooms);
     var collection = db.get('messagecollection');//skapar collection messagecollection
     collection.insert(messageForDb); // Skickar objektet till databasen
 
-    socket.broadcast.emit('chat-message', {  //skriver ut till klienten
+    socket.to(room).broadcast.emit('chat-message', {  //skriver ut till klienten
       message: message, name:
-        users[socket.id]
+      rooms[room].users[socket.id]
 
     })
   })
 
   // When a user disconnects from chat
   socket.on('disconnect', () => {
-      socket.broadcast.emit('user-disconnected', users[socket.id])
-      delete users[socket.id]
-
-    });
+    getUserRooms(socket).forEach(room => {
+    socket.broadcast.emit('user-disconnected', rooms[room].users[socket.id])
+    delete rooms[room].users[socket.id]
+  })
+  });
 })
 
-/*function getUserRooms(socket) {
+function getUserRooms(socket) {
   return Object.entries(rooms).reduce((names, [name, room]) => {
     if (room.users[socket.id] != null) names.push(name);
     return names;
   }, [])
-}*/
+}
 
 
 // view engine setup
@@ -108,41 +107,53 @@ app.use("/upload", uploadRouter);
 app.use("/register", registerRouter);
 app.use("/room", roomRouter)
 
+//get userID
+app.get('/user/:id', (req, res) => {
+  let collection = db.get('usercollection');
+  collection.findOne({ _id: req.params.id }, (e, user) => {
 
-/*app.post('/room', (req, res) => {
-  if (rooms[req.body.room] != null) {
-    return res.redirect('/');
-  }
-  rooms[req.body.room] = { users: {} }
-  res.redirect(req.body.room)
-
-
+    
+    // console.log(user);
+    res.send(JSON.stringify(user));
+  })
 })
 
+//render ROOM
+app.get('/:room', function (req, res) {
 
-// Gets the rooms created (need to make this work with database) and their names
-app.get('/:room', (req, res) => {
-  if (rooms[req.params.room] == null) {
-    return res.redirect('/');
-  }
-  let roomcollection = db.get("roomcollection");
-  collection.find({}, {}, function (e, dbroom) {
   let collection = db.get("usercollection");
-  collection.find({}, {}, function (e, data) {
+  let messagecollection = db.get("messagecollection");
+  let roomcollection = db.get("roomcollection");// and this
+  let room = req.params.room;
+  collection.find({roomname: room}, {}, function (e, data) {
+    
+    if(rooms[room] != rooms){
+    let newRoom = roomcollection.insert({
+      "roomname": room
+    })
+  
+    rooms[room] = { users: {} }
+  }
+    if (e) {
+      throw e;
+    }
+    res.cookie('user', req.session.user._id, { maxAge: 3600, httpOnly: false });
 
-  var roomName = req.params.room;
-console.log(roomName);
-  collection.insert({
-    "roomname": roomName
+    roomcollection.find({}, {}, function (e, rooms) { // If things go to shit remove this
+      messagecollection.find({}, {}, function (e, message) {
+        message = message;
+        res.render("room", { message: message, data: data, rooms: rooms, roomName: room });
+      });
+    })
   })
-  io.emit('room-created', req.params.room);
-    res.render('room', { rooms: dbroom, roomName: req.params.room, data: data })
-  })
+});
+
+// POST to Add User Service 
+app.post('/room', function (req, res) {
+
+res.redirect(req.body.room);
 })
-})*/
-//app.listen(4000, () => console.log("Server is running on port 4000")); //appens server
 
-//app.use('/', indexRouter);
 
 
 server.listen(3001);

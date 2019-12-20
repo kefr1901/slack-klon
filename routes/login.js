@@ -10,7 +10,6 @@ router.post('/', function (req, res, next) {
     var db = req.db;
     var collection = db.get('usercollection');
     collection.findOne({ username: enteredUsername, userpassword: enteredPassword }, function (e, data) {
-        console.log(data);
         if (e || data == null) {
             console.log('Username or password is wrong')
             res.redirect('/');
