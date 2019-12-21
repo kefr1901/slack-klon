@@ -21,7 +21,8 @@ router.get('/', function (req, res) {
   collection.find({}, {}, function (e, data) {
    user = data;
 
-    //console.log(data)
+   roomName = "chat";
+    console.log(data)
     if (e) {
       throw e;
     }
@@ -31,7 +32,7 @@ router.get('/', function (req, res) {
   roomcollection.find({}, {}, function (e, rooms) {
   messagecollection.find({}, {}, function (e, message) {
     message = message;
-    res.render("chat", { data: user, message: message, rooms: rooms });
+    res.render("chat", { data: user, message: message, rooms: rooms, roomName: roomName });
   });
 })
 });
@@ -41,7 +42,7 @@ router.get('/', function (req, res) {
 
 
 
-
+/*
 // POST to Add User Service 
 router.post('/', function (req, res) {
 
@@ -71,5 +72,5 @@ router.post('/', function (req, res) {
     }
   });
 });
-
+*/
 module.exports = router;

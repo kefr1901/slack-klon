@@ -48,6 +48,10 @@ roomcollection.find({}, function (e, data) {
 // När en användare connectar till chatten
 io.on('connection', socket => {
   socket.on('new-room', (room, name) => {
+    if(rooms[room] == undefined){
+    rooms[room] = { users: {}}
+  }
+  console.log(rooms[room]);
     socket.join(room);
     rooms[room].users[socket.id] = name;
     socket.to(room).broadcast.emit('user-connected', name);
@@ -61,15 +65,12 @@ io.on('connection', socket => {
       
 
     }
-    console.log("HERE", rooms);
+    console.log("HERE", rooms[room].users[socket.id]);
     var collection = db.get('messagecollection');//skapar collection messagecollection
     collection.insert(messageForDb); // Skickar objektet till databasen
 
-    socket.to(room).broadcast.emit('chat-message', {  //skriver ut till klienten
-      message: message, name:
-      rooms[room].users[socket.id]
-
-    })
+    socket.to(room).broadcast.emit('chat-message', messageForDb)
+    console.log("HERE", rooms[room].users[socket.id]);
   })
 
   // When a user disconnects from chat
@@ -129,8 +130,6 @@ app.get('/:room', function (req, res) {
     let newRoom = roomcollection.insert({
       "roomname": room
     })
-  
-    rooms[room] = { users: {} }
   }
     if (e) {
       throw e;
