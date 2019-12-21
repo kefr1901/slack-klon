@@ -39,7 +39,6 @@ fetch('chat/user/' + userId).then(res => res.json()).then(user => {
 // Adds message written onto html page in the specified container
 socket.on('chat-message', data => {
     appendMessage(`${data.name}: ${data.message}`);
-    console.log("HERE", data.name);
 });
 
 // On user connect, adds user's name and connected message
@@ -55,7 +54,6 @@ socket.on('user-disconnected', name => {
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#snd-btn').addEventListener('click', e => {
         e.preventDefault();
-        console.log("scrollToBottom KÖÖÖÖRS");
         socket.emit('send-chat-message', roomName, document.querySelector('#msg-inp').value);
         appendMessage("You: " + document.querySelector('#msg-inp').value);
         var element = document.getElementById("msg-cont");
