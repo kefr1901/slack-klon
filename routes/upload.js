@@ -45,7 +45,9 @@ router.post('/', (req, res) => {
                 //this below defines data again
                 let db = req.db;
                 let collection = db.get("usercollection");
+                let roomcollection = db.get("roomcollection");
                 let messagecollection = db.get("messagecollection");
+                roomcollection.find({}, {}, function (e, rooms) {
                 messagecollection.find({}, {}, function (e, message) {
                     collection.find({}, {}, function (e, data){
                         if (e) {
@@ -56,9 +58,12 @@ router.post('/', (req, res) => {
                             res.render('chat', {
                                 file: `uploads/${req.file.filename}`,
                                 message: message,
-                                data: data
+                                data: data,
+                                roomName: req.params.room,
+                                rooms: rooms
                             });
                         };
+                    });
                     });
                 });
             }

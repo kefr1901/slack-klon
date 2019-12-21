@@ -48,10 +48,10 @@ roomcollection.find({}, function (e, data) {
 // När en användare connectar till chatten
 io.on('connection', socket => {
   socket.on('new-room', (room, name) => {
-    if(rooms[room] == undefined){
-    rooms[room] = { users: {}}
-  }
-  console.log(rooms[room]);
+    if (rooms[room] == undefined) {
+      rooms[room] = { users: {} }
+    }
+    console.log(rooms[room]);
     socket.join(room);
     rooms[room].users[socket.id] = name;
     socket.to(room).broadcast.emit('user-connected', name);
@@ -61,8 +61,8 @@ io.on('connection', socket => {
   socket.on('send-chat-message', (room, message) => {
     let messageForDb = { //skapar ett objekt av meddelandet och vem som är användare
       message: message, name:  //meddelande från personen
-      rooms[room].users[socket.id] //personID på personen
-      
+        rooms[room].users[socket.id] //personID på personen
+
 
     }
     console.log("HERE", rooms[room].users[socket.id]);
@@ -76,9 +76,9 @@ io.on('connection', socket => {
   // When a user disconnects from chat
   socket.on('disconnect', () => {
     getUserRooms(socket).forEach(room => {
-    socket.broadcast.emit('user-disconnected', rooms[room].users[socket.id])
-    delete rooms[room].users[socket.id]
-  })
+      socket.broadcast.emit('user-disconnected', rooms[room].users[socket.id])
+      delete rooms[room].users[socket.id]
+    })
   });
 })
 
@@ -111,7 +111,7 @@ app.get('/user/:id', (req, res) => {
   let collection = db.get('usercollection');
   collection.findOne({ _id: req.params.id }, (e, user) => {
 
-    
+
     // console.log(user);
     res.send(JSON.stringify(user));
   })
@@ -122,33 +122,37 @@ app.get('/:room', function (req, res) {
 
   let collection = db.get("usercollection");
   let messagecollection = db.get("messagecollection");
-  let roomcollection = db.get("roomcollection");// and this
+  let roomcollection = db.get("roomcollection");
   let room = req.params.room;
-  collection.find({roomname: room}, {}, function (e, data) {
-    
-    if(rooms[room] != rooms){
-    let newRoom = roomcollection.insert({
-      "roomname": room
-    })
-  }
-    if (e) {
-      throw e;
-    }
-    res.cookie('user', req.session.user._id, { maxAge: 3600, httpOnly: false });
-
-    roomcollection.find({}, {}, function (e, rooms) { // If things go to shit remove this
+  let roomLet = rooms;
+  collection.find({ roomname: room }, {}, function (e, data) {
+    roomcollection.find({}, {}, function (e, rooms) {
       messagecollection.find({}, {}, function (e, message) {
+        if (e) {
+          throw e;
+        }
+        if (roomLet[room] == undefined) {
+          let newRoom = roomcollection.insert({
+            "roomname": room
+          })
+        console.log(roomLet[room], room);
+      }
+        res.cookie('user', req.session.user._id, { maxAge: 3600, httpOnly: false });
+      
+
         message = message;
         res.render("room", { message: message, data: data, rooms: rooms, roomName: room });
+        
       });
     })
   })
+  
 });
 
 // POST to Add User Service 
 app.post('/room', function (req, res) {
 
-res.redirect(req.body.room);
+  res.redirect(req.body.room);
 })
 
 

@@ -8,6 +8,7 @@ router.get('/user/:id', (req, res) => {
   collection.findOne({ _id: req.params.id }, (e, user) => {
     if (e) throw e;
     res.send(JSON.stringify(user));
+    console.log("COOKIE", req.params.id );
   })
 })
 
