@@ -208,7 +208,10 @@ h2{
 color:green;
 font-size: large;
 }
-
+#house{
+  color:white;
+  font-size: large;
+  }
 #profil_pic{
   text-align: center;
   margin: 0 auto;

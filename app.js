@@ -119,8 +119,7 @@ app.get('/:room', function (req, res) {
   let room = req.params.room;
   let roomLet = rooms;
   collection.find({}, {}, function (e, data) {
-    roomcollection.find({roomname: room}, {}, function (e, theroom) {
-    roomcollection.find({}, {}, function (e, rooms) {
+    roomcollection.find({roomname: room}, {}, function (e, theroom) {    
       messagecollection.find({room: room}, {}, function (e, message) {
         if (e) {
           throw e;
@@ -130,6 +129,7 @@ app.get('/:room', function (req, res) {
             "roomname": room
           })
       }
+      roomcollection.find({}, {}, function (e, rooms) {
       message = message;
         res.cookie('user', req.session.user._id, { maxAge: 3600, httpOnly: false });           
         res.render("room", { message: message, data: data, rooms: rooms, roomName: room });
