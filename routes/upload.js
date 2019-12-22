@@ -48,22 +48,22 @@ router.post('/', (req, res) => {
                 let roomcollection = db.get("roomcollection");
                 let messagecollection = db.get("messagecollection");
                 roomcollection.find({}, {}, function (e, rooms) {
-                messagecollection.find({}, {}, function (e, message) {
-                    collection.find({}, {}, function (e, data){
-                        if (e) {
-                            throw e;
-                        } else {
-                            //here we can put in a path to the image maybe in the future
-                            res.cookie('user', req.session.user._id, { maxAge: 3600, httpOnly: false });
-                            res.render('chat', {
-                                file: `uploads/${req.file.filename}`,
-                                message: message,
-                                data: data,
-                                roomName: req.params.room,
-                                rooms: rooms
-                            });
-                        };
-                    });
+                    messagecollection.find({}, {}, function (e, message) {
+                        collection.find({}, {}, function (e, data) {
+                            if (e) {
+                                throw e;
+                            } else {
+                                //here we can put in a path to the image maybe in the future
+                                res.cookie('user', req.session.user._id, { maxAge: 3600, httpOnly: false });
+                                res.render('chat', {
+                                    file: `uploads/${req.file.filename}`,
+                                    message: message,
+                                    data: data,
+                                    roomName: req.params.room,
+                                    rooms: rooms
+                                });
+                            };
+                        });
                     });
                 });
             }

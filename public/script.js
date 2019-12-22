@@ -5,26 +5,6 @@ const messageInput = document.getElementById('msg-inp');
 const roomCont = document.getElementById('room-cont');
 const loginCont = document.getElementById('formLogin');
 
-
-/*socket.on('room-created', room => {
-    console.log("THISROOM", room);
-    const roomElement = document.createElement('div');4
-    roomElement.innerText = room;
-    const roomLink = document.createElement('a');
-    roomLink.href = `/${room}`;
-    roomLink.innerText = 'join';
-    roomCont.append(roomElement);
-    roomCont.append(roomLink);
-})*/
-
-/*msgForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const message = messageInput.value;
-    appendMessage(`${name}: ${message}`);
-    socket.emit('send-chat-message', roomName, message);
-    messageInput.value = '';
-})*/
-
 let userId = document.cookie.replace('user=', '');
 let name;
 //hämtar användarnamnet från databasen sparat som en cookie för att få ut "rätt" namn från DB
@@ -58,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         appendMessage("You: " + document.querySelector('#msg-inp').value);
         var element = document.getElementById("msg-cont");
         element.scrollIntoView(false);
+        messageInput.value = '';
     });
 });
 

@@ -27,7 +27,6 @@ var chatRouter = require("./routes/chat");
 var loginRouter = require("./routes/login");
 var uploadRouter = require("./routes/upload");
 var registerRouter = require("./routes/register");
-var roomRouter = require("./routes/room");
 
 
 
@@ -64,7 +63,6 @@ io.on('connection', socket => {
       room: room
 
     }
-    console.log("this is room", room);
     var collection = db.get('messagecollection');//skapar collection messagecollection
     collection.insert(messageForDb); // Skickar objektet till databasen
 
@@ -102,7 +100,6 @@ app.use('/chat', chatRouter);
 app.use("/login", loginRouter);
 app.use("/upload", uploadRouter);
 app.use("/register", registerRouter);
-app.use("/room", roomRouter)
 
 //get userID
 app.get('/user/:id', (req, res) => {
@@ -133,13 +130,8 @@ app.get('/:room', function (req, res) {
             "roomname": room
           })
       }
-      console.log("THEROOM", theroom)
-      console.log("THEROOM", room)
-        res.cookie('user', req.session.user._id, { maxAge: 3600, httpOnly: false });
-      
-
-        
-        message = message;
+      message = message;
+        res.cookie('user', req.session.user._id, { maxAge: 3600, httpOnly: false });           
         res.render("room", { message: message, data: data, rooms: rooms, roomName: room });
         
       });

@@ -19,20 +19,21 @@ router.get('/', function (req, res) {
   let roomcollection = db.get("roomcollection");
 
   collection.find({}, {}, function (e, data) {
-   user = data;
-
-   roomName = "chat";
+    user = data;
+    // Sets chat roomname as no new chats will be created
+    roomName = "chat";
     if (e) {
       throw e;
     }
     res.cookie('user', req.session.user._id, { maxAge: 3600, httpOnly: false });
   });
   roomcollection.find({}, {}, function (e, rooms) {
-  messagecollection.find({room: roomName}, {}, function (e, message) {
-    message = message;
-    res.render("chat", { data: user, message: message, rooms: rooms, roomName: roomName });
-  });
-})
+    messagecollection.find({ room: roomName }, {}, function (e, message) {
+      message = message;
+
+      res.render("chat", { data: user, message: message, rooms: rooms, roomName: roomName });
+    });
+  })
 });
 
 module.exports = router;

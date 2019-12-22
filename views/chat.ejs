@@ -10,7 +10,7 @@
   <script defer src="script.js"></script>
   <script>
     roomName = "<%= roomName %>"
-</script>
+  </script>
 </head>
 
 <body>
@@ -22,11 +22,11 @@
       <input id="name" name="room" type="text">
       <button type="submit" id="add_room_btn">Lägg till rum!</button>
     </form>
-    
-    <a href="/chat" ># Main Channel</a>
-      <% for(let i=0; i < rooms.length; i++){ %>
-          <li> <a href="/<%= rooms[i].roomname %>"><i id="person" class="fas fa-user"> </i> <%= rooms[i].roomname %> </li></a>
-      <% } %>
+
+    <a href="/chat"># Main Channel</a>
+    <% for(let i=0; i < rooms.length; i++){ %>
+    <li> <a href="/<%= rooms[i].roomname %>"><i id="person" class="fas fa-user"> </i> <%= rooms[i].roomname %> </li></a>
+    <% } %>
     <hr>
     <br>
 
@@ -37,7 +37,7 @@
       <%= typeof msg != 'undefined' ? msg : '' %>
       <h3 class="formH3 uploadH3">Upload an image</h3>
       <form id="formUpload" action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="myImage">
+        <input type="file" name="myImage" id="chosFile">
         <button id="upload_btn" type="submit">Upload</button>
         <div id="imageContainer">
           <img src="<%= typeof file != 'undefined' ? file : '' %>" alt="profilepic"
@@ -73,12 +73,12 @@
         </div>
       </div>
     </div>
-      <!-- Chat input -->
-      <form method="POST" id="snd-cont" name="" action="/chat">
-        <input id="msg-inp" type="text" name="msg-inp" placeholder="Skriv ditt meddelande.."></input><button
-          id="snd-btn" type="submit">Skicka</button>
-      </form>
-    
+    <!-- Chat input -->
+    <form method="POST" id="snd-cont" name="" action="/chat">
+      <input id="msg-inp" type="text" name="msg-inp" placeholder="Skriv ditt meddelande.."></input><button id="snd-btn"
+        type="submit">Skicka</button>
+    </form>
+
   </div>
 
   <script src="https://kit.fontawesome.com/692051db43.js" crossorigin="anonymous"></script>

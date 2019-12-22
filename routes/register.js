@@ -17,7 +17,7 @@ router.post('/', function (req, res) {
         }
         else {
             req.session.user = { _id: doc._id };
-            res.redirect("/chat"); 
+            res.redirect("/chat");
         }
     });
 });
