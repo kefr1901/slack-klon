@@ -19,7 +19,7 @@ app.use(function (req, res, next) {
 
 app.use(cookieSession({
   name: 'session',
-  keys: ['key1', 'key2', 'key3']
+  keys: ['key1', 'key2']
 }))
 
 var indexRouter = require("./routes/index");
@@ -120,7 +120,8 @@ app.get('/:room', function (req, res) {
   let roomcollection = db.get("roomcollection");
   let room = req.params.room;
   let roomLet = rooms;
-  collection.find({ roomname: room }, {}, function (e, data) {
+  collection.find({}, {}, function (e, data) {
+    roomcollection.find({roomname: room}, {}, function (e, theroom) {
     roomcollection.find({}, {}, function (e, rooms) {
       messagecollection.find({}, {}, function (e, message) {
         if (e) {
@@ -131,13 +132,17 @@ app.get('/:room', function (req, res) {
             "roomname": room
           })
       }
+      console.log("THEROOM", theroom)
+      console.log("THEROOM", room)
         res.cookie('user', req.session.user._id, { maxAge: 3600, httpOnly: false });
       
 
+        
         message = message;
         res.render("room", { message: message, data: data, rooms: rooms, roomName: room });
         
       });
+    })
     })
   })
   

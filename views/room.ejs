@@ -6,6 +6,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css'>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
     <script defer src="script.js"></script>
     <script>
         roomName = "<%= roomName %>"
@@ -18,15 +19,17 @@
 
     <div class="sidenav">
 
-        <img id="side_logo" src="images/logo4.png">
+        <img class="logo" src="images/logo4.png">
         <!-- <h2 id="logo_text">SNACK</h2> -->
         <br>
         <form action="/room" method="POST">
             <input id="name" name="room" type="text">
             <button type="submit" id="add_room_btn">Lägg till rum!</button>
         </form>
-        <a href="/chat"># Main Channel</a>
-
+        <a href="/chat" ># Main Channel</a>
+        <% for(let i=0; i < rooms.length; i++){ %>
+            <li> <a href="/<%= rooms[i].roomname %>"><i id="person" class="fas fa-user"> </i> <%= rooms[i].roomname %></a> </li>
+        <% } %>
         <hr>
         <br>
         <!-- Side navigation-->
@@ -47,114 +50,38 @@
         <!-- Image uploadpart ENDS here -->
 
 
-        <h2>Rooms</h2>
+        <h2>Users</h2>
         <div id="useronline">
-            <% for(let i=0; i < rooms.length; i++){ %>
-            <a>
-                <li> <a href="/<%= rooms[i].roomname %>"><i id="person" class="fas fa-user"> </i> <%= rooms[i].roomname %> </li></a>
-            </a>
+            <% for(let i=0; i < data.length; i++){ %>
+                <a>
+                    <li><i id="person" class="fas fa-user"></i><%= data[i].username %></li>
+                  </a>
             <% } %>
-        </div>
+          </div>
     </div>
 
-    <!-- Main -->
-    <div class="main">
-        <div id="chatbox">
+    <div id="chat_container">
+        <!-- Main -->
+        <div class="main">
+          <div id="chatbox">
             <div id="msg-cont">
-                <!--   <% for(let i=0; i < message.length; i++){ %>
+            <!--  <% for(let i=0; i < message.length; i++){ %>
               <div class="chatbox_output">
-                <%= message[i].name %>     
-                   <%= "earlier said:" %>
-              <%= message[i].message %>
-              
-            </div>
-              
+                <%= message[i].name %>
+                <%= "earlier said:" %>
+                <%= message[i].message %>
+              </div> 
               <% } %>-->
-
             </div>
-
-
+          </div>
         </div>
-    </div>
     <form method="POST" id="snd-cont" name="" action="/chat">
 
         <input id="msg-inp" type="text" name="msg-inp" placeholder="Skriv ditt meddelande.."></input><button
             id="snd-btn" type="submit">Skicka</button>
 
     </form>
-
+    <script src="https://kit.fontawesome.com/692051db43.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
-<!-- <!DOCTYPE html>
-<html>
-
-<head>
-    <title> </title>
-
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-    <script defer src="script.js"></script>
-    
-</head>
-
-<body>
-
-
-    <div class="sidenav">
-
-        <img id="side_logo" src="images/talck_logo.png">
-        <h2 id="logo_text">SNACK</h2>
-        <br>
-        <form action="/room" method="POST">
-        <input name="room" type="text" required>
-        <button type="submit">Lägg till rum!</button>
-    </form>
-    <ul>
-                
-        <% for(let i=0; i < rooms.length; i++){ %>
-        <li> <a href="/<%= rooms[i].roomname %>"><%= rooms[i].roomname %></li></a>
-        <% } %>
-    </ul>
-        <a href="#">#Channel</a>
-        <a href="#">#Skitsnack</a>
-        <div id="room-cont"></div>
-        <hr>
-        <br>
-
-        <form action="/room" method="POST">
-            <ul>
-                
-                <% for(let i=0; i < data.length; i++){ %>
-                <li> <a href="/<%= data[i].username %>"><%= data[i].username %></li></a>
-                <% } %>
-            </ul>
-        </form>
-    </div>
-
-
-
-
-    <div class="main">
-        <div id="chatbox">
-            <label id="username_chat">Username är inloggad</label>
-            <div id="msg-cont">
-
-            </div>
-        </div>
-
-    </div>
-
-    <form id="snd-cont">
-
-        <input id="msg-inp" type="text" name="msg-inp" placeholder="Skriv ditt meddelande.."></input><button
-            id="snd-btn" type="submit">Skicka</button>
-
-    </form>
-
-
-
-
-</body>
-
-</html> -->

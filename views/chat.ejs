@@ -6,6 +6,7 @@
   <link rel='stylesheet' href='/stylesheets/style.css'>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
   <script defer src="script.js"></script>
   <script>
     roomName = "<%= roomName %>"
@@ -24,9 +25,7 @@
     
     <a href="/chat" ># Main Channel</a>
       <% for(let i=0; i < rooms.length; i++){ %>
-      <a>
           <li> <a href="/<%= rooms[i].roomname %>"><i id="person" class="fas fa-user"> </i> <%= rooms[i].roomname %> </li></a>
-      </a>
       <% } %>
     <hr>
     <br>
