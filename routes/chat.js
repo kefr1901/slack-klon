@@ -28,7 +28,7 @@ router.get('/', function (req, res) {
     res.cookie('user', req.session.user._id, { maxAge: 3600, httpOnly: false });
   });
   roomcollection.find({}, {}, function (e, rooms) {
-  messagecollection.find({}, {}, function (e, message) {
+  messagecollection.find({room: roomName}, {}, function (e, message) {
     message = message;
     res.render("chat", { data: user, message: message, rooms: rooms, roomName: roomName });
   });

@@ -60,10 +60,11 @@ io.on('connection', socket => {
   socket.on('send-chat-message', (room, message) => {
     let messageForDb = { //skapar ett objekt av meddelandet och vem som är användare
       message: message, name:  //meddelande från personen
-        rooms[room].users[socket.id] //personID på personen
-
+        rooms[room].users[socket.id], //personID på personen
+      room: room
 
     }
+    console.log("this is room", room);
     var collection = db.get('messagecollection');//skapar collection messagecollection
     collection.insert(messageForDb); // Skickar objektet till databasen
 
@@ -123,7 +124,7 @@ app.get('/:room', function (req, res) {
   collection.find({}, {}, function (e, data) {
     roomcollection.find({roomname: room}, {}, function (e, theroom) {
     roomcollection.find({}, {}, function (e, rooms) {
-      messagecollection.find({}, {}, function (e, message) {
+      messagecollection.find({room: room}, {}, function (e, message) {
         if (e) {
           throw e;
         }
